@@ -30,6 +30,36 @@
           "spec": "https://ucp.dev/2026-08-25/specification/overview/",
           "schema": "https://ucp.dev/2026-08-25/schemas/shopping/order.json"
         }
+      ],
+      "dev.ucp.shopping.fulfillment": [
+        {
+          "version": "2026-08-25",
+          "spec": "https://ucp.dev/2026-08-25/specification/shopping/extensions/fulfillment/",
+          "schema": "https://ucp.dev/2026-08-25/schemas/shopping/fulfillment.json",
+          "extends": [
+            "dev.ucp.shopping.checkout"
+          ],
+          "requires": {
+            "protocol": {
+              "min": "2026-08-25"
+            }
+          }
+        }
+      ],
+      "dev.ucp.shopping.buyer_consent": [
+        {
+          "version": "2026-08-25",
+          "spec": "https://ucp.dev/2026-08-25/specification/shopping/extensions/buyer-consent/",
+          "schema": "https://ucp.dev/2026-08-25/schemas/shopping/buyer_consent.json",
+          "extends": [
+            "dev.ucp.shopping.checkout"
+          ],
+          "requires": {
+            "protocol": {
+              "min": "2026-08-25"
+            }
+          }
+        }
       ]
     },
     "payment_handlers": {}
