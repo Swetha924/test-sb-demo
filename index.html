@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Test SB Demo · UCP Suppliers</title>
+<style>
+/* Layout: header, supplier tabs, then chat (left) and cart + protocol log (right); one column on phones. */
+:root{
+  --bg:#ffffff; --ink:#1d2433; --muted:#5b6676; --line:#dde3ea; --soft:#f4f6f9;
+  --navy:#0b3d66; --navy-ink:#ffffff;
+  --chat-bg:#f7f4ff; --chat-bubble:#ece6fc; --chat-line:#ddd4f7; --chat-accent:#6a4fc9;
+  --ok:#1b7445; --ok-bg:#e7f4ec; --warn:#8f5300; --warn-bg:#fcf1df; --bad:#b42318; --bad-bg:#fdecea;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px))}
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding-block:12px}
+.brand{font-family:Georgia,"Times New Roman",serif;font-size:20px;font-weight:700;color:var(--navy)}
+.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:600;background:var(--soft);color:var(--muted)}
+.pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.bad{background:var(--bad-bg);color:var(--bad)}
+.ucp{display:inline-block;margin-left:6px;font-size:10px;font-weight:700;letter-spacing:.05em;padding:1px 6px;border-radius:4px;background:var(--chat-bubble);color:var(--chat-accent);vertical-align:2px}
+h1{font-size:22px;margin:18px 0 4px;text-wrap:balance}
+.lede{color:var(--muted);margin:0 0 14px;max-width:72ch}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:16px}
+.tabs button{border:0;background:none;padding:10px 14px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;color:var(--muted);font:inherit;font-weight:600;text-align:left}
+.tabs button[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--navy)}
+.tabs small{display:block;font-weight:400;font-size:12px}
+main.grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;padding-bottom:40px}
+@media(max-width:960px){main.grid{grid-template-columns:1fr}}
+.col{display:flex;flex-direction:column;gap:12px;min-width:0}
+.chat{border:1px solid var(--chat-line);background:var(--chat-bg);border-radius:10px;padding:14px;min-height:380px;max-height:70vh;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;gap:8px;align-items:flex-start;max-width:100%}
+.msg.user{justify-content:flex-end}
+.msg.user .bubble{background:var(--chat-accent);color:#fff;max-width:80%}
+.avatar{flex:none;width:28px;height:28px;border-radius:50%;background:var(--chat-accent);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center}
+.bubble{background:var(--chat-bubble);border-radius:12px;padding:10px 12px;min-width:0;max-width:100%}
+.bubble p{margin:0 0 6px} .bubble p:last-child{margin-bottom:0}
+.call{display:flex;gap:6px;align-items:baseline;font:12px/1.4 var(--mono);color:var(--muted);margin:2px 0;word-break:break-all}
+.call .t{font:700 10px/1.6 -apple-system,sans-serif;letter-spacing:.05em;background:#fff;color:var(--chat-accent);border-radius:4px;padding:0 5px}
+.composer{display:flex;gap:8px}
+.composer input{flex:1;min-width:0;border:1px solid var(--chat-line);border-radius:8px;padding:10px 12px;font:inherit}
+.btn{border:1px solid var(--navy);background:var(--navy);color:var(--navy-ink);border-radius:8px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--navy)} .btn.sm{padding:4px 10px;font-size:12px}
+.btn:disabled{opacity:.5;cursor:default}
+.btn:focus-visible,.chip:focus-visible,.tabs button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--chat-accent);outline-offset:2px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted)}
+.chip{border:1px solid var(--chat-line);background:var(--chat-bg);color:var(--ink);border-radius:999px;padding:4px 12px;font:inherit;font-size:13px;cursor:pointer}
+.store-h{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:10px 0 6px}
+.results{display:grid;gap:8px}
+.prod{display:grid;grid-template-columns:56px minmax(0,1fr);gap:10px;background:#fff;border:1px solid var(--chat-line);border-radius:8px;padding:8px}
+.prod img{width:56px;height:56px;object-fit:cover;border-radius:6px;background:var(--soft)}
+.prod .ti{font-weight:600}
+.prod .meta{font-size:12px;color:var(--muted)}
+.prod .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px}
+.prod select{max-width:100%;min-width:0;border:1px solid var(--line);border-radius:6px;padding:4px 6px;font:inherit;font-size:12px}
+.prod input[type=number]{width:60px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;font:inherit}
+.price{font-variant-numeric:tabular-nums;font-weight:700}
+.av-ok{color:var(--ok)} .av-no{color:var(--bad)}
+.card{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fff}
+.card h3{font-size:14px;margin:0 0 8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+.cart-store{margin-bottom:10px}
+.log{font:11px/1.45 var(--mono);max-height:340px;overflow-y:auto;background:var(--soft);border-radius:6px;padding:6px;display:flex;flex-direction:column;gap:2px}
+.log .e{border-bottom:1px solid var(--line);padding:3px 0;word-break:break-all}
+.log .ok{color:var(--ok)} .log .no{color:var(--bad)}
+.log details summary{cursor:pointer;color:#0a5ea8}
+.log pre{white-space:pre-wrap;margin:4px 0;max-height:220px;overflow:auto;background:#fff;padding:6px;border-radius:4px}
+.muted{color:var(--muted)} .bad{color:var(--bad)} .okc{color:var(--ok)}
+.result{background:#fff;border:1px solid var(--chat-line);border-radius:8px;padding:10px;margin-top:8px}
+.result dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:2px 12px;margin:6px 0 0;font-size:13px}
+.result dt{color:var(--muted)} .result dd{margin:0;font-variant-numeric:tabular-nums}
+.needs{margin:6px 0 0;padding-left:18px;font-size:13px}
+label.f{display:block;font-size:12px;color:var(--muted);margin-top:8px}
+label.f input,label.f select{display:block;width:100%;border:1px solid var(--line);border-radius:6px;padding:6px 8px;font:inherit;color:var(--ink);margin-top:2px}
+.typing::after{content:"…";animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.3}}
+@media (prefers-reduced-motion:reduce){.typing::after{animation:none}}
+footer{color:var(--muted);font-size:12px;padding-block:0 30px;max-width:90ch}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <span class="brand">BirchStreet</span><span>Purchasing agent</span>
+  <span class="pill ok">Live UCP · real store data</span>
+  <span class="pill" id="modePill">Trial checkout: nothing is bought</span>
+</div></header>
+
+<div class="wrap">
+  <h1>Order from UCP suppliers</h1>
+  <p class="lede">These suppliers are not in the BirchStreet catalog. They publish a UCP profile, so the BirchStreet agent searches their real catalogs from this page and opens a real checkout to confirm price and tax. The checkout is canceled right after, so nothing is bought.</p>
+  <div class="tabs" role="tablist" aria-label="Suppliers">
+    <button role="tab" type="button" data-store="all" aria-selected="true">All UCP suppliers<small>Search all three</small></button>
+    <button role="tab" type="button" data-store="brooklinen" aria-selected="false">Brooklinen<span class="ucp">UCP</span><small>Bedding and towels</small></button>
+    <button role="tab" type="button" data-store="parachute" aria-selected="false">Parachute Home<span class="ucp">UCP</span><small>Linens and bath</small></button>
+    <button role="tab" type="button" data-store="deathwish" aria-selected="false">Death Wish Coffee<span class="ucp">UCP</span><small>Coffee</small></button>
+  </div>
+</div>
+
+<main class="wrap grid">
+  <div class="col">
+    <div class="chat" id="chat" aria-live="polite"></div>
+    <form class="composer" id="form">
+      <input id="msg" autocomplete="off" placeholder="e.g. 6 white bath towels" aria-label="What do you need?">
+      <button class="btn" type="submit" id="send">Send</button>
+    </form>
+    <div class="chips"><span>Try:</span>
+      <button class="chip" type="button" data-text="6 white bath towels">6 white bath towels</button>
+      <button class="chip" type="button" data-text="2 queen sheet sets">2 queen sheet sets</button>
+      <button class="chip" type="button" data-text="3 bags of whole bean coffee">3 bags of whole bean coffee</button>
+      <button class="chip" type="button" data-text="place order">Place order</button>
+    </div>
+  </div>
+  <aside class="col">
+    <section class="card" aria-labelledby="cartH"><h3 id="cartH">Cart <span class="pill" id="limitPill">Limit $75</span></h3><div id="cart"><span class="muted">Empty. Search, then choose Add to cart.</span></div></section>
+    <section class="card" aria-labelledby="logH"><h3 id="logH">UCP calls from this page <button class="btn ghost sm" type="button" data-act="clearlog">Clear</button></h3><div class="log" id="log"><span class="muted">No calls yet.</span></div></section>
+    <section class="card" aria-labelledby="setH"><h3 id="setH">Settings</h3>
+      <label class="f" for="profile">BirchStreet platform profile (public URL the stores read)<input id="profile" value="https://cdn.jsdelivr.net/gh/Swetha924/test-sb-demo@main/test-sb-demo.json"></label>
+      <label class="f" for="email">Buyer email for checkout<input id="email" value="purchasing@example.com"></label>
+      <label class="f" for="street">Ship to: street<input id="street" value="3410 Hillview Ave"></label>
+      <label class="f" for="city">City<input id="city" value="Palo Alto"></label>
+      <label class="f" for="region">State<input id="region" value="CA"></label>
+      <label class="f" for="zip">ZIP<input id="zip" value="94304"></label>
+      <label class="f" for="role">Requester<select id="role"><option value="75">Hotel user (auto-approve up to $75)</option><option value="1000">Engineering manager (up to $1,000)</option></select></label>
+    </section>
+  </aside>
+</main>
+<div class="wrap"><footer>Product names, prices, images and stock come live from each store's UCP endpoint. The PO number is a demo number: this page has no BirchStreet backend. Approval is a demo button. Checkouts are created to read the store's real totals and then canceled.</footer></div>
+
+<script>
+(function(){
+'use strict';
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const money = minor => minor == null ? '–' : '$' + (minor / 100).toFixed(2);
+const uuid = () => (crypto.randomUUID ? crypto.randomUUID() : 'k' + Date.now() + Math.random().toString(16).slice(2));
+
+const STORES = {
+  brooklinen: {name: 'Brooklinen', site: 'https://www.brooklinen.com'},
+  parachute: {name: 'Parachute Home', site: 'https://www.parachutehome.com'},
+  deathwish: {name: 'Death Wish Coffee', site: 'https://www.deathwishcoffee.com'}
+};
+const st = {store: 'all', cart: [], busy: false, poSeq: 0, rows: {}, rowSeq: 0};
+
+/* ---------- chat ---------- */
+function msg(who, html){
+  const d = document.createElement('div');
+  d.className = 'msg ' + who;
+  d.innerHTML = (who === 'agent' ? '<span class="avatar" aria-hidden="true">AI</span>' : '') + `<div class="bubble">${html}</div>`;
+  $('#chat').appendChild(d); $('#chat').scrollTop = $('#chat').scrollHeight;
+  return d.querySelector('.bubble');
+}
+const callLine = text => `<div class="call"><span class="t">UCP</span><span>${esc(text)}</span></div>`;
+
+/* ---------- protocol log ---------- */
+function logCall(e){
+  const box = $('#log');
+  const empty = box.querySelector(':scope > .muted'); if (empty) empty.remove();
+  const d = document.createElement('div');
+  d.className = 'e';
+  d.innerHTML = `<b>${esc(e.store)}</b> ${esc(e.label)} <span class="${e.ok ? 'ok' : 'no'}">${e.ok ? '✓' : '✗'} ${esc(e.summary)}</span> <span class="muted">${e.ms} ms</span>
+    <details><summary>Request and response</summary><pre>${esc(e.method + ' ' + e.url + '\n' + (e.req ? JSON.stringify(e.req, null, 2) : ''))}</pre><pre>${esc(JSON.stringify(e.res, null, 2).slice(0, 6000))}</pre></details>`;
+  box.appendChild(d); box.scrollTop = box.scrollHeight;
+}
+
+/* ---------- UCP client (runs in the browser; the stores allow cross-origin calls) ---------- */
+class UCPError extends Error { constructor(m, code){ super(m); this.code = code; } }
+const profileUrl = () => $('#profile').value.trim();
+async function discover(key){
+  const s = STORES[key];
+  if (s.endpoint) return s;
+  const url = s.site + '/.well-known/ucp', t0 = performance.now();
+  let body, ok = false;
+  try {
+    const r = await fetch(url, {headers: {Accept: 'application/json'}});
+    body = await r.json(); ok = r.ok;
+  } catch (err){
+    logCall({store: s.name, label: 'GET /.well-known/ucp', ok: false, summary: err.message, ms: Math.round(performance.now() - t0), method: 'GET', url, res: String(err)});
+    throw new UCPError(`Could not read ${s.name}'s UCP profile: ${err.message}`);
+  }
+  const svc = ((body.ucp || {}).services || {})['dev.ucp.shopping'] || [];
+  const mcp = svc.find(x => x.transport === 'mcp');
+  logCall({store: s.name, label: 'GET /.well-known/ucp', ok: ok && !!mcp, summary: mcp ? `UCP ${body.ucp.version} · MCP ${mcp.endpoint}` : 'no MCP endpoint', ms: Math.round(performance.now() - t0), method: 'GET', url, res: body});
+  if (!mcp) throw new UCPError(`${s.name} does not publish a UCP MCP endpoint.`);
+  s.endpoint = mcp.endpoint; s.version = body.ucp.version;
+  return s;
+}
+async function tool(key, name, args, summarize){
+  const s = await discover(key), t0 = performance.now();
+  const req = {jsonrpc: '2.0', id: Date.now(), method: 'tools/call', params: {name, arguments: args}};
+  let data;
+  try {
+    const r = await fetch(s.endpoint, {method: 'POST', headers: {'Content-Type': 'application/json', Accept: 'application/json, text/event-stream'}, body: JSON.stringify(req)});
+    const text = await r.text();
+    data = text.trim().startsWith('{') ? JSON.parse(text) : JSON.parse(text.split('\n').filter(l => l.startsWith('data:')).pop().slice(5));
+  } catch (err){
+    logCall({store: s.name, label: name, ok: false, summary: err.message, ms: Math.round(performance.now() - t0), method: 'POST', url: s.endpoint, req, res: String(err)});
+    throw new UCPError(`${s.name}: ${name} failed (${err.message})`);
+  }
+  const ms = Math.round(performance.now() - t0);
+  if (data.error){
+    const d = data.error.data || {};
+    logCall({store: s.name, label: name, ok: false, summary: `${data.error.message}${d.code ? ' · ' + d.code : ''}`, ms, method: 'POST', url: s.endpoint, req, res: data});
+    throw new UCPError(`${s.name}: ${data.error.message}${d.code ? ` (${d.code}: ${d.content || ''})` : ''}`, d.code);
+  }
+  const res = data.result || {};
+  let out = res.structuredContent;
+  if (out && Object.keys(out).length === 1 && typeof out.result === 'string') out = JSON.parse(out.result);
+  if (!out && res.content && res.content[0]) { try { out = JSON.parse(res.content[0].text); } catch (e) { out = {text: res.content[0].text}; } }
+  out = out || {};
+  logCall({store: s.name, label: name, ok: !res.isError, summary: res.isError ? 'error' : summarize(out), ms, method: 'POST', url: s.endpoint, req, res: out});
+  if (res.isError) throw new UCPError(`${s.name}: ${name} returned an error`);
+  return out;
+}
+const meta = idem => Object.assign({'ucp-agent': {profile: profileUrl()}}, idem ? {'idempotency-key': uuid()} : {});
+const context = () => ({address_country: 'US', address_region: $('#region').value.trim(), postal_code: $('#zip').value.trim(), currency: 'USD'});
+const shipTo = () => ({street_address: $('#street').value.trim(), address_locality: $('#city').value.trim(), address_region: $('#region').value.trim(), postal_code: $('#zip').value.trim(), address_country: 'US'});
+
+/* ---------- request parsing ---------- */
+const WORDNUM = {a:1, an:1, one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8, nine:9, ten:10, twelve:12};
+function parseRequest(text){
+  return text.toLowerCase().replace(/[.!?]/g, ' ').split(/,|;|\n|\band\b|\bplus\b/).map(s => s.trim()).filter(Boolean).map(seg => {
+    let s = seg, prev;
+    do { prev = s; s = s.replace(/^(?:i need|we need|need|please|can you|could you|get me|get|order|buy|add|also|some|find)\s+/, ''); } while (s !== prev);
+    let qty = 1;
+    const m = s.match(/^(?:(\d+)|(a|an|one|two|three|four|five|six|seven|eight|nine|ten|twelve))\b\s*(?:x\s+)?/);
+    if (m){ qty = m[1] ? parseInt(m[1], 10) : WORDNUM[m[2]]; s = s.slice(m[0].length); }
+    s = s.replace(/^(?:bags?|boxes?|packs?|sets?|cases?) of\s+/, '');
+    return {query: s.trim(), qty: Math.max(1, qty)};
+  }).filter(p => p.query);
+}
+function bestVariant(product, query){
+  const vs = product.variants || [];
+  const toks = query.toLowerCase().split(/\s+/).map(t => t.replace(/s$/, '')).filter(t => t.length > 2);
+  const hay = v => ((v.title || '') + ' ' + (v.options || []).map(o => o.label).join(' ')).toLowerCase();
+  const avail = vs.filter(v => !v.availability || v.availability.available !== false);
+  return avail.map(v => ({v, s: toks.filter(t => hay(v).includes(t)).length})).sort((a, b) => b.s - a.s)[0]?.v || avail[0] || vs[0];
+}
+
+/* ---------- search ---------- */
+async function search(text){
+  const parts = parseRequest(text);
+  if (!parts.length){ msg('agent', '<p>Tell me what you need, for example "6 white bath towels".</p>'); return; }
+  const keys = st.store === 'all' ? Object.keys(STORES) : [st.store];
+  const bubble = msg('agent', `<p class="muted typing">Searching ${keys.map(k => STORES[k].name).join(', ')} over UCP</p>`);
+  let html = '';
+  for (const p of parts){
+    html += `<p><b>${p.qty} × ${esc(p.query)}</b></p>`;
+    const outs = await Promise.all(keys.map(async k => {
+      try {
+        const out = await tool(k, 'search_catalog', {meta: meta(false), catalog: {query: p.query, context: context(), pagination: {limit: 4}}}, o => `${(o.products || []).length} products`);
+        return {k, products: out.products || []};
+      } catch (err){ return {k, error: err.message}; }
+    }));
+    for (const o of outs){
+      html += `<div class="store-h">${esc(STORES[o.k].name)}<span class="ucp">UCP</span></div>`;
+      html += callLine(`tools/call search_catalog "${p.query}" → ${o.error ? 'failed' : o.products.length + ' products'}`);
+      if (o.error){ html += `<p class="bad">${esc(o.error)}</p>`; continue; }
+      if (!o.products.length){ html += '<p class="muted">No matches.</p>'; continue; }
+      html += '<div class="results">' + o.products.slice(0, 3).map(prod => {
+        const id = 'r' + (++st.rowSeq), v = bestVariant(prod, p.query);
+        st.rows[id] = {store: o.k, product: prod};
+        const img0 = (v.media || prod.media || [])[0];
+        let img = null;
+        if (img0 && img0.url){ try { const u = new URL(img0.url); if (u.hostname.endsWith('shopify.com')) u.searchParams.set('width', '112'); img = {url: u.href}; } catch (e) {} }
+        const opts = (prod.variants || []).slice(0, 40).map(x => `<option value="${esc(x.id)}" ${x.id === v.id ? 'selected' : ''}>${esc(x.title)} · ${money(x.price && x.price.amount)}${x.availability && x.availability.available === false ? ' · not available' : ''}</option>`).join('');
+        const av = v.availability && v.availability.available === false;
+        return `<div class="prod">${img ? `<img src="${esc(img.url)}" alt="" loading="lazy">` : '<span></span>'}
+          <div><div class="ti">${esc(prod.title)}</div>
+          <div class="meta"><span class="price" id="p${id}">${money(v.price && v.price.amount)}</span> · <span class="${av ? 'av-no' : 'av-ok'}" id="a${id}">${av ? 'Not available' : 'Available'}</span> · <a href="${esc(prod.url)}" target="_blank" rel="noopener">View on ${esc(STORES[o.k].name)}</a></div>
+          <div class="row">${(prod.variants || []).length > 1 ? `<select id="v${id}" data-variant="${id}" aria-label="Option for ${esc(prod.title)}">${opts}</select>` : `<input type="hidden" id="v${id}" value="${esc(v.id)}">`}
+          <input type="number" id="q${id}" min="1" max="99" value="${p.qty}" aria-label="Quantity">
+          <button class="btn sm" type="button" data-add="${id}">Add to cart</button></div></div></div>`;
+      }).join('') + '</div>';
+    }
+  }
+  bubble.innerHTML = html + '<p>Add what you want to the cart, then say "place order".</p>';
+  $('#chat').scrollTop = $('#chat').scrollHeight;
+}
+function variantOf(id){
+  const r = st.rows[id], vid = $('#v' + id).value;
+  return (r.product.variants || []).find(x => x.id === vid);
+}
+function addToCart(id){
+  const r = st.rows[id], v = variantOf(id), qty = Math.max(1, parseInt($('#q' + id).value, 10) || 1);
+  if (!v) return;
+  const line = st.cart.find(l => l.variant.id === v.id);
+  if (line) line.qty += qty; else st.cart.push({store: r.store, title: r.product.title, variant: v, qty});
+  renderCart();
+  msg('agent', `<p>Added ${qty} × ${esc(r.product.title)} (${esc(v.title)}) from ${esc(STORES[r.store].name)}.</p>`);
+}
+
+/* ---------- cart ---------- */
+const limit = () => parseInt($('#role').value, 10) * 100;
+const lineTotal = l => (l.variant.price ? l.variant.price.amount : 0) * l.qty;
+const cartTotal = () => st.cart.reduce((a, l) => a + lineTotal(l), 0);
+function renderCart(){
+  const box = $('#cart');
+  if (!st.cart.length){ box.innerHTML = '<span class="muted">Empty. Search, then choose Add to cart.</span>'; $('#limitPill').className = 'pill'; return; }
+  const groups = {};
+  st.cart.forEach((l, i) => (groups[l.store] = groups[l.store] || []).push([l, i]));
+  box.innerHTML = Object.entries(groups).map(([k, ls]) => `<div class="cart-store"><div class="eyebrow">${esc(STORES[k].name)} <span class="ucp">UCP</span></div>
+    <table><tbody>${ls.map(([l, i]) => `<tr><td>${esc(l.title)}<br><span class="muted">${esc(l.variant.title)}</span></td>
+      <td><input type="number" min="0" max="99" value="${l.qty}" data-cq="${i}" style="width:52px" aria-label="Quantity of ${esc(l.title)}"></td>
+      <td class="r" data-cl="${i}">${money(lineTotal(l))}</td></tr>`).join('')}</tbody></table></div>`).join('') +
+    `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px"><span>Total <b class="price" id="cartTotal">${money(cartTotal())}</b> <span class="muted">before tax and shipping</span></span>
+     <button class="btn sm" type="button" data-act="place">Place order</button></div>`;
+  updateLimit();
+}
+function updateLimit(){
+  const over = cartTotal() > limit();
+  $('#limitPill').className = 'pill ' + (st.cart.length ? (over ? 'warn' : 'ok') : '');
+  $('#limitPill').textContent = st.cart.length ? (over ? `Over $${limit() / 100}: needs approval` : `Within $${limit() / 100}`) : `Limit $${limit() / 100}`;
+}
+
+/* ---------- place order: policy, PO, then a real UCP checkout per store (canceled) ---------- */
+async function place(){
+  st.cart = st.cart.filter(l => l.qty > 0);
+  if (!st.cart.length){ msg('agent', '<p>Your cart is empty.</p>'); return; }
+  const total = cartTotal(), over = total > limit();
+  const po = 'SB-DEMO-' + String(++st.poSeq).padStart(4, '0');
+  msg('agent', `<p>BirchStreet policy: cart total ${money(total)}. ${over ? `This is over the $${limit() / 100} limit for this requester.` : 'Within the limit, so no approval is needed.'}</p><p>Created PO <b>${po}</b> <span class="muted">(demo number)</span>.</p>`);
+  if (over){
+    const b = msg('agent', `<p>Sent ${po} to the Engineering manager for approval.</p><p><button class="btn sm" type="button" data-approve>Approve as manager (demo)</button></p>`);
+    await new Promise(r => b.querySelector('[data-approve]').addEventListener('click', r, {once: true}));
+    b.querySelector('[data-approve]').outerHTML = '<span class="pill ok">Approved by Engineering manager</span>';
+  }
+  const groups = {};
+  st.cart.forEach(l => (groups[l.store] = groups[l.store] || []).push(l));
+  for (const [k, lines] of Object.entries(groups)) await checkoutStore(k, lines, po);
+}
+async function checkoutStore(k, lines, po){
+  const name = STORES[k].name;
+  const b = msg('agent', `<p class="muted typing">Checking out with ${esc(name)} over UCP</p>`);
+  let html = `<div class="store-h">${esc(name)}<span class="ucp">UCP</span></div>`;
+  try {
+    const look = await tool(k, 'lookup_catalog', {meta: meta(false), catalog: {ids: lines.map(l => l.variant.id), context: context()}}, o => `${(o.products || []).length} products re-checked`);
+    html += callLine(`tools/call lookup_catalog (${lines.length} item${lines.length === 1 ? '' : 's'}) → price and stock re-checked`);
+    const fresh = {};
+    (look.products || []).forEach(p => (p.variants || []).forEach(v => { fresh[v.id] = v; }));
+    const changed = lines.filter(l => fresh[l.variant.id] && fresh[l.variant.id].price && l.variant.price && fresh[l.variant.id].price.amount !== l.variant.price.amount);
+    if (changed.length) html += `<p class="bad">Price changed on ${changed.length} item(s) since search.</p>`;
+
+    const co = await tool(k, 'create_checkout', {meta: meta(true), checkout: {
+      line_items: lines.map(l => ({item: {id: l.variant.id}, quantity: l.qty})),
+      buyer: {email: $('#email').value.trim()}, context: context(),
+      fulfillment: {methods: [{type: 'shipping', destinations: [shipTo()]}]}
+    }}, o => `checkout ${o.status || ''}`);
+    html += callLine(`tools/call create_checkout → ${co.status}`);
+    const t = type => (co.totals || []).find(x => x.type === type);
+    const ship = (co.totals || []).filter(x => /ship|fulfil/i.test(x.type));
+    const needs = (co.messages || []).filter(m => m.type === 'error');
+    html += `<div class="result"><b>Real checkout at ${esc(name)}</b> <span class="pill ${co.status === 'ready_for_complete' ? 'ok' : 'warn'}">${esc(co.status)}</span>
+      <dl><dt>PO</dt><dd>${po} (demo)</dd><dt>Subtotal</dt><dd>${money(t('subtotal') && t('subtotal').amount)}</dd>
+      ${ship.map(s => `<dt>${esc(s.display_text || 'Shipping')}</dt><dd>${money(s.amount)}</dd>`).join('')}
+      <dt>Tax</dt><dd>${money(t('tax') && t('tax').amount)}</dd><dt>Total</dt><dd><b>${money(t('total') && t('total').amount)}</b></dd>
+      <dt>Ship to</dt><dd>${esc(Object.values(shipTo()).join(', '))}</dd></dl>
+      ${needs.length ? `<p style="margin:8px 0 0">To complete, ${esc(name)} still needs:</p><ul class="needs">${needs.map(m => `<li><b>${esc(m.code)}</b>: ${esc(m.content)}</li>`).join('')}</ul>` : ''}`;
+    if (co.id){
+      await tool(k, 'cancel_checkout', {meta: meta(true), id: co.id}, o => `checkout ${o.status || ''}`);
+      html += `<p class="muted" style="margin:8px 0 0">Trial: checkout canceled with cancel_checkout. Nothing was bought.</p>`;
+    }
+    html += '</div>';
+  } catch (err){
+    html += `<p class="bad">${esc(err.message)}</p>`;
+  }
+  b.innerHTML = html;
+  $('#chat').scrollTop = $('#chat').scrollHeight;
+}
+
+/* ---------- events ---------- */
+async function handle(text){
+  text = text.trim();
+  if (!text || st.busy) return;
+  msg('user', esc(text));
+  $('#msg').value = '';
+  st.busy = true; $('#send').disabled = true;
+  try {
+    if (/^(place( the)? order|check ?out|order it|buy it)\b/i.test(text)) await place();
+    else await search(text);
+  } catch (err){ msg('agent', `<p class="bad">${esc(err.message)}</p>`); }
+  finally { st.busy = false; $('#send').disabled = false; }
+}
+function greet(){
+  $('#chat').innerHTML = '';
+  const who = st.store === 'all' ? 'Brooklinen, Parachute Home and Death Wish Coffee' : STORES[st.store].name;
+  msg('agent', `<p>Hi, I am the BirchStreet purchasing agent. I search ${esc(who)} live over UCP.</p><p>Tell me what you need, like "6 white bath towels" or "3 bags of whole bean coffee".</p>`);
+}
+$('#form').addEventListener('submit', e => { e.preventDefault(); handle($('#msg').value); });
+document.addEventListener('click', e => {
+  const tab = e.target.closest('[data-store]');
+  if (tab){
+    st.store = tab.dataset.store;
+    document.querySelectorAll('[data-store]').forEach(b => b.setAttribute('aria-selected', String(b === tab)));
+    greet(); return;
+  }
+  const chip = e.target.closest('[data-text]'); if (chip){ handle(chip.dataset.text); return; }
+  const add = e.target.closest('[data-add]'); if (add){ addToCart(add.dataset.add); return; }
+  const act = e.target.closest('[data-act]');
+  if (act && act.dataset.act === 'place'){ handle('place order'); return; }
+  if (act && act.dataset.act === 'clearlog'){ $('#log').innerHTML = '<span class="muted">Cleared.</span>'; }
+});
+document.addEventListener('change', e => {
+  const sel = e.target.closest('[data-variant]');
+  if (sel){
+    const id = sel.dataset.variant, v = variantOf(id);
+    $('#p' + id).textContent = money(v.price && v.price.amount);
+    const av = v.availability && v.availability.available === false;
+    $('#a' + id).textContent = av ? 'Not available' : 'Available'; $('#a' + id).className = av ? 'av-no' : 'av-ok';
+  }
+  if (e.target.id === 'role') updateLimit();
+});
+document.addEventListener('input', e => {
+  const q = e.target.closest('[data-cq]');
+  if (q){
+    const l = st.cart[+q.dataset.cq]; l.qty = Math.max(0, parseInt(q.value, 10) || 0);
+    document.querySelector(`[data-cl="${q.dataset.cq}"]`).textContent = money(lineTotal(l));
+    $('#cartTotal').textContent = money(cartTotal()); updateLimit();
+  }
+});
+greet();
+})();
+</script>
+</body>
+</html>
