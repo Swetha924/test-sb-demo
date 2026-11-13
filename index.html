@@ -445,6 +445,43 @@ body:not(.page-pur) main > .pg-pur{display:none}
 .ps-pref p,.ps-how ol{margin:0}
 .ps-how ol{padding-left:18px;display:flex;flex-direction:column;gap:6px;margin-top:8px}
 body.ab-open .ask-birch{display:none}
+/* Sleek search bars */
+.ps-search{background:var(--bg);border:1px solid #e3e1ee;border-radius:999px;padding:6px 6px 6px 22px;gap:12px;margin-top:10px;
+  box-shadow:0 1px 2px rgba(16,24,40,.05),0 10px 28px rgba(39,30,92,.08);transition:box-shadow .15s,border-color .15s}
+.ps-search:focus-within{border-color:#b9a9f2;box-shadow:0 0 0 4px rgba(106,79,201,.14),0 10px 28px rgba(39,30,92,.10)}
+.ps-search svg{width:20px;height:20px;color:#8a8fa3}
+.ps-search input{font-size:17px;padding:12px 0}
+.ps-search input::placeholder{color:#9aa0b2}
+.ps-go{width:48px;height:48px;border:0;border-radius:50%;background:var(--ab-grad);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none;transition:transform .15s}
+.ps-go:hover{transform:translateX(2px)}
+.ps-go svg{width:20px;height:20px;color:#fff}
+.hsearch{border:1px solid transparent;background:var(--soft);border-radius:999px;padding:3px 3px 3px 14px;transition:background .15s,box-shadow .15s}
+.hsearch:focus-within{background:var(--bg);border-color:#b9a9f2;box-shadow:0 0 0 3px rgba(106,79,201,.14)}
+.hs-go{width:32px;height:32px;border:0;border-radius:50%;background:var(--ab-grad);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none}
+.hs-go svg{width:16px;height:16px;color:#fff}
+@media (prefers-reduced-motion:reduce){.ps-search,.ps-go,.hsearch{transition:none}}
+/* Cart inside the agent panel */
+.ab-cart{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden}
+.abc-top{display:flex;align-items:center;gap:10px;padding:8px 10px 8px 6px}
+.abc-toggle{flex:1;min-width:0;display:flex;align-items:center;gap:8px;border:0;background:none;font:inherit;font-size:14px;color:var(--ink);cursor:pointer;text-align:left;padding:4px 6px;border-radius:8px}
+.abc-toggle:hover{background:rgba(106,79,201,.06)}
+.abc-toggle svg{width:18px;height:18px;color:var(--chat-accent);flex:none}
+.abc-toggle b{font-variant-numeric:tabular-nums}
+.abc-caret{margin-left:auto;color:var(--chat-accent);font-weight:600;font-size:13px}
+.abc-list{border-top:1px solid var(--ab-line);background:var(--bg);max-height:min(42vh,380px);overflow-y:auto;padding:10px 14px 12px;display:flex;flex-direction:column;gap:10px}
+.abc-store{display:flex;flex-direction:column;gap:6px}
+.abc-line{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:10px;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid var(--line)}
+.abc-name{display:flex;flex-direction:column;min-width:0}
+.abc-name span{font-size:12px}
+.abc-qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.abc-qty button{width:26px;height:26px;border:0;background:var(--bg);cursor:pointer;font:inherit;font-weight:700;color:var(--navy)}
+.abc-qty button:hover{background:var(--soft)}
+.abc-qty span{min-width:22px;text-align:center;font-variant-numeric:tabular-nums}
+.abc-amt{font-variant-numeric:tabular-nums;min-width:72px;text-align:right}
+.abc-rm{border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer;line-height:1}
+.abc-rm:hover{color:var(--bad)}
+.abc-total{display:flex;justify-content:space-between;font-size:14px;padding-top:2px}
+.abc-total b{font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -470,8 +507,7 @@ body.ab-open .ask-birch{display:none}
     <form class="hsearch" id="hdrSearch" role="search">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <input id="hdrQ" placeholder="Search items, e.g. paper cups" aria-label="Search items" autocomplete="off">
-      <select id="hdrScope" aria-label="Search in"></select>
-      <button class="btn primary sm" type="submit">Search</button>
+      <button class="hs-go" type="submit" aria-label="Search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </form>
     <div class="umenu-wrap">
       <button class="ubtn" type="button" id="userBtn" aria-expanded="false" aria-controls="userMenu"><span id="hdrUser">Swetha Beepyata</span><small>Hotel user</small><span aria-hidden="true">▾</span></button>
@@ -845,12 +881,11 @@ body.ab-open .ask-birch{display:none}
     <div class="ps-hero">
       <span class="eyebrow">Search items · UCP suppliers <span class="live-tag">LIVE</span></span>
       <h2>What do you need to buy?</h2>
-      <p class="muted">Ask Birch searches suppliers that aren’t in the BirchStreet catalog, live over UCP, and recommends items. Restaurantware, your preferred supplier, comes first.</p>
+      <p class="muted">The BSS Purchasing agent searches suppliers that aren’t in the BirchStreet catalog, live over UCP, and recommends items. Restaurantware, your preferred supplier, comes first.</p>
       <form class="ps-search" id="psForm" role="search">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <input id="psQ" placeholder="Type an item, e.g. 2 cases of paper cups" aria-label="Item name" autocomplete="off">
-        <select id="psScope" aria-label="Search in"></select>
-        <button class="btn primary" type="submit">Search</button>
+        <input id="psQ" placeholder="Search items, e.g. 2 cases of paper cups" aria-label="Item name" autocomplete="off">
+        <button class="ps-go" type="submit" aria-label="Search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </form>
       <div class="ps-cats"><span class="muted">Popular:</span>
         <button class="ps-cat" type="button" data-ps="paper cups">Paper cups</button>
@@ -2157,20 +2192,29 @@ async function search(text){
         return {k, products: all.filter(prod => relevant(prod, p.query)), loose: all.length};
       } catch (err){ return {k, error: err.message}; }
     }));
+    const failed = outs.filter(o => o.error);
+    if (failed.length === outs.length){
+      // Nothing answered: the browser is blocking calls (Claude preview, a file opened from disk, or a network filter).
+      html += `<div class="ab-card" style="border-color:#f0c9a8;background:var(--warn-bg)"><b>I couldn’t reach any supplier from this browser.</b>
+        <span>The stores are online, but this page can’t make calls to them here. That happens in the Claude file preview, when the file is opened from your computer, or behind a network filter that blocks myshopify.com.</span>
+        <span>Open the hosted page instead: <a href="https://raw.githack.com/Swetha924/test-sb-demo/main/index.html#live" target="_blank" rel="noopener">raw.githack.com/Swetha924/test-sb-demo</a>, then search again.</span></div>`;
+      logSys(`No supplier answered (${failed.length} of ${outs.length} failed: ${failed[0].error.replace(/^.*\(/, '').replace(/\)\.?$/, '')}). The browser is blocking calls to the stores.`);
+      continue;
+    }
     const pref = outs.find(o => o.k === PREFERRED && o.products && o.products.length);
     const others = outs.filter(o => o.k !== PREFERRED && o.products && o.products.length);
     const errs = outs.filter(o => o.error);
     if (parts.length > 1) html += `<p style="margin-top:10px"><b>${p.qty} × ${esc(p.query)}</b></p>`;
     html += pref
       ? `<p>For <b>${esc(p.query)}</b>, I recommend <b>Restaurantware</b>, your preferred supplier: ${pref.products.length} match${pref.products.length === 1 ? '' : 'es'}, live prices below.${others.length ? ` ${others.length} other UCP supplier${others.length === 1 ? ' also has' : 's also have'} matches.` : ''}</p>`
-      : `<p>${keys.includes(PREFERRED) ? 'Restaurantware has no match for' : 'Here’s what I found for'} <b>${esc(p.query)}</b>${keys.includes(PREFERRED) ? `. ${others.length ? `Here’s what ${others.length} other UCP supplier${others.length === 1 ? ' has' : 's have'}.` : 'No other supplier has it either.'}` : '.'}</p>`;
+      : `<p>${outs.some(o => o.k === PREFERRED && o.error) ? 'Restaurantware didn’t answer just now for' : keys.includes(PREFERRED) ? 'Restaurantware has no match for' : 'Here’s what I found for'} <b>${esc(p.query)}</b>${keys.includes(PREFERRED) ? `. ${others.length ? `Here’s what ${others.length} other UCP supplier${others.length === 1 ? ' has' : 's have'}.` : 'No other supplier has it either.'}` : '.'}</p>`;
     if (pref) html += pref.products.slice(0, 3).map(prod => productCard(pref, prod, p, true)).join('');
     else if (others.length) html += productCard(others[0], others[0].products[0], p, false);
     const rest = pref ? others : others.map((o, i) => i === 0 ? {...o, products: o.products.slice(1)} : o).filter(o => o.products.length);
     const rows = [];
     rest.forEach(o => o.products.slice(0, 2).forEach(prod => rows.push([o, prod])));
     if (rows.length) html += `<div class="ab-other"><div class="ab-other-h">Other matching items <span class="ab-count">${rows.length}</span></div>${rows.slice(0, 8).map(([o, prod]) => productRow(o, prod, p)).join('')}${rows.length > 8 ? `<div class="ab-row muted" style="display:block">${rows.length - 8} more. Narrow the search, or pick suppliers on the UCP suppliers page.</div>` : ''}</div>`;
-    if (errs.length) html += errs.map(o => `<p class="bad" style="font-size:12px">${esc(o.error)}</p>`).join('');
+    if (errs.length) html += `<p class="muted" style="font-size:12px;margin-top:8px">${errs.length} supplier${errs.length === 1 ? '' : 's'} didn’t answer: ${esc(errs.map(o => STORES[o.k].name).join(', '))}. Details are in the activity log.</p>`;
   }
   const calls = st.turn; st.turn = null;
   const head = `<span class="ab-ctx">UCP catalogs <span>· live from ${keys.length} supplier${keys.length === 1 ? '' : 's'}${keys.includes(PREFERRED) ? ', Restaurantware first' : ''}</span></span><br>
@@ -2257,13 +2301,31 @@ function renderCart(){
   updateLimit();
 }
 function renderAbCart(){
-  const bar = $('#abCart'), n = st.cart.filter(l => l.qty > 0).reduce((a, l) => a + l.qty, 0);
+  const bar = $('#abCart');
   if (!bar) return;
+  const lines = st.cart.map((l, i) => [l, i]).filter(([l]) => l.qty > 0), n = lines.reduce((a, [l]) => a + l.qty, 0);
   bar.hidden = !n;
-  if (!n) return;
-  const stores = [...new Set(st.cart.filter(l => l.qty > 0).map(l => STORES[l.store].name))];
-  bar.innerHTML = `<span>Cart · <b>${n} item${n === 1 ? '' : 's'}</b> · <b>${money(cartTotal())}</b> <span class="muted">from ${esc(stores.join(', '))}</span></span><span class="sp"></span>
-    <a href="#live" data-tab="live" class="link">View cart</a><button class="btn primary sm" type="button" data-lv-act="place">Place order</button>`;
+  if (!n){ st.abCartOpen = false; return; }
+  const groups = {};
+  lines.forEach(([l, i]) => (groups[l.store] = groups[l.store] || []).push([l, i]));
+  bar.innerHTML = `<div class="abc-top"><button class="abc-toggle" type="button" data-ab-cart aria-expanded="${!!st.abCartOpen}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 7H6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19" r="1.4" fill="currentColor"/><circle cx="17" cy="19" r="1.4" fill="currentColor"/></svg>
+      Cart · <b>${n} item${n === 1 ? '' : 's'}</b> · <b>${money(cartTotal())}</b><span class="abc-caret">${st.abCartOpen ? 'Hide' : 'View cart'}</span></button>
+      <button class="btn primary sm" type="button" data-lv-act="place">Place order</button></div>
+    ${st.abCartOpen ? `<div class="abc-list">${Object.entries(groups).map(([k, ls]) => `<div class="abc-store"><div class="ab-eyebrow">${esc(STORES[k].name)} · UCP${k === PREFERRED ? ' <span class="ab-badge pref">Preferred supplier</span>' : ''}</div>
+      ${ls.map(([l, i]) => `<div class="abc-line"><div class="abc-name">${esc(l.title)}<span class="muted">${esc(l.variant.title === 'Default Title' ? '' : l.variant.title)}</span></div>
+        <div class="abc-qty"><button type="button" data-lv-dec="${i}" aria-label="One fewer">−</button><span>${l.qty}</span><button type="button" data-lv-inc="${i}" aria-label="One more">+</button></div>
+        <b class="abc-amt">${money(lineTotal(l))}</b><button class="abc-rm" type="button" data-lv-rm="${i}" aria-label="Remove ${esc(l.title)}">×</button></div>`).join('')}
+      ${storeCartHtml(k)}</div>`).join('')}
+      <div class="abc-total"><span>Total before tax and shipping</span><b>${money(cartTotal())}</b></div>
+      <p class="muted" style="font-size:12px;margin:0">${limit() < cartTotal() ? `Over your $${limit() / 100} limit: a manager approves before checkout.` : `Within your $${limit() / 100} limit.`}</p></div>` : ''}`;
+}
+function changeQty(i, delta){
+  const l = st.cart[i]; if (!l) return;
+  l.qty = Math.max(0, l.qty + delta);
+  logUser(l.qty ? `Changed ${esc(l.title)} to ${l.qty}` : `Removed ${esc(l.title)} from the cart`);
+  if (!l.qty) st.cart.splice(i, 1);
+  renderCart(); queueSync(l.store);
 }
 function updateLimit(){
   renderAbCart();
@@ -2406,6 +2468,10 @@ document.addEventListener('click', e => {
   }
   const g = e.target.closest('[data-lv-group]');
   if (g){ st.selected = new Set(Object.keys(GROUPS[+g.dataset.lvGroup].stores)); renderPicker(); logUser(`Selected ${esc(GROUPS[+g.dataset.lvGroup].name)} suppliers`); return; }
+  if (e.target.closest('[data-ab-cart]')){ st.abCartOpen = !st.abCartOpen; renderAbCart(); if (st.abCartOpen) logUser('Opened the cart in the agent panel'); return; }
+  const inc = e.target.closest('[data-lv-inc]'); if (inc){ changeQty(+inc.dataset.lvInc, 1); return; }
+  const dec = e.target.closest('[data-lv-dec]'); if (dec){ changeQty(+dec.dataset.lvDec, -1); return; }
+  const rmv = e.target.closest('[data-lv-rm]'); if (rmv){ const l = st.cart[+rmv.dataset.lvRm]; if (l) changeQty(+rmv.dataset.lvRm, -l.qty); return; }
   const all = e.target.closest('[data-lv-all]');
   if (all){ st.selected = all.dataset.lvAll === '1' ? new Set(Object.keys(STORES)) : new Set(); renderPicker(); logUser(all.dataset.lvAll === '1' ? 'Selected all suppliers' : 'Cleared the supplier selection'); return; }
   const chip = e.target.closest('[data-lv-text]'); if (chip){ handle(chip.dataset.lvText); return; }
@@ -2441,12 +2507,16 @@ document.addEventListener('input', e => {
 
 /* Search started from the BirchStreet header search bar: scope = 'all', a group key, or a store key. */
 function searchFrom(text, scope, where){
-  const grp = GROUPS.find(g => g.key === scope);
-  const keys = scope === 'all' ? [] : grp ? Object.keys(grp.stores) : STORES[scope] ? [scope] : [];
-  st.selected = new Set(keys);
-  renderPicker(); checkAll();
-  const label = scope === 'all' ? `all ${Object.keys(STORES).length} UCP suppliers, Restaurantware first` : keys.length === 1 ? STORES[keys[0]].name : (grp || {}).name;
-  logUser(`Searched “${esc(text)}” from ${esc(where || 'the BirchStreet search bar')} (scope: ${esc(label)})`);
+  // No scope: keep the supplier cards the user selected; none selected = all suppliers, Restaurantware first.
+  if (scope){
+    const grp = GROUPS.find(g => g.key === scope);
+    st.selected = new Set(scope === 'all' ? [] : grp ? Object.keys(grp.stores) : STORES[scope] ? [scope] : []);
+    renderPicker();
+  }
+  checkAll();
+  const sel = [...st.selected];
+  const label = !sel.length ? `all ${Object.keys(STORES).length} UCP suppliers, Restaurantware first` : sel.length > 3 ? `${sel.length} selected suppliers` : sel.map(k => STORES[k].name).join(', ');
+  logUser(`Searched “${esc(text)}” from ${esc(where || 'the BirchStreet search bar')} (${esc(label)})`);
   handle(text);
 }
 function newChat(){ greet(); logUser('Started a new BSS Purchasing agent chat'); }
@@ -2556,14 +2626,14 @@ $('#hdrSearch').addEventListener('submit', e => {
   e.preventDefault();
   const q = $('#hdrQ').value.trim();
   if (!q) { $('#hdrQ').focus(); return; }
-  askFor(q, $('#hdrScope').value, 'the BirchStreet search bar');
+  askFor(q, null, 'the BirchStreet search bar');
   $('#hdrQ').value = '';
 });
 $('#psForm').addEventListener('submit', e => {
   e.preventDefault();
   const q = $('#psQ').value.trim();
   if (!q) { $('#psQ').focus(); return; }
-  askFor(q, $('#psScope').value, 'the Purchasing page');
+  askFor(q, null, 'the Purchasing page');
   $('#psQ').value = '';
 });
 $('#abClose').addEventListener('click', closeAsk);
@@ -2576,12 +2646,11 @@ document.addEventListener('click', e => {
   if (e.target.closest('[data-ab-open]')) openAsk();
   if (e.target.closest('[data-tab]')) setTimeout(markRail, 0);
   const cat = e.target.closest('[data-ps]');
-  if (cat) askFor(cat.dataset.ps, $('#psScope').value, 'the Purchasing page');
+  if (cat) askFor(cat.dataset.ps, null, 'the Purchasing page');
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape'){ toggleMenu(false); closeAsk(); } });
 window.addEventListener('hashchange', markRail);
 
-fillScopes($('#hdrScope')); fillScopes($('#psScope'));
 markRail();
 let saved = null;
 try { saved = JSON.parse(sessionStorage.getItem(KEY) || 'null'); } catch (e) {}
