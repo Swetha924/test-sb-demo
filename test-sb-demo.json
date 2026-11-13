@@ -6,28 +6,35 @@
       "dev.ucp.shopping.catalog.search": [
         {
           "version": "2026-08-25",
-          "spec": "https://ucp.dev/2026-08-25/specification/overview/",
+          "spec": "https://ucp.dev/2026-08-25/specification/shopping/catalog/",
           "schema": "https://ucp.dev/2026-08-25/schemas/shopping/catalog_search.json"
         }
       ],
       "dev.ucp.shopping.catalog.lookup": [
         {
           "version": "2026-08-25",
-          "spec": "https://ucp.dev/2026-08-25/specification/overview/",
+          "spec": "https://ucp.dev/2026-08-25/specification/shopping/catalog/",
           "schema": "https://ucp.dev/2026-08-25/schemas/shopping/catalog_lookup.json"
+        }
+      ],
+      "dev.ucp.shopping.cart": [
+        {
+          "version": "2026-08-25",
+          "spec": "https://ucp.dev/2026-08-25/specification/shopping/cart/",
+          "schema": "https://ucp.dev/2026-08-25/schemas/shopping/cart.json"
         }
       ],
       "dev.ucp.shopping.checkout": [
         {
           "version": "2026-08-25",
-          "spec": "https://ucp.dev/2026-08-25/specification/overview/",
+          "spec": "https://ucp.dev/2026-08-25/specification/shopping/checkout/",
           "schema": "https://ucp.dev/2026-08-25/schemas/shopping/checkout.json"
         }
       ],
       "dev.ucp.shopping.order": [
         {
           "version": "2026-08-25",
-          "spec": "https://ucp.dev/2026-08-25/specification/overview/",
+          "spec": "https://ucp.dev/2026-08-25/specification/shopping/order/",
           "schema": "https://ucp.dev/2026-08-25/schemas/shopping/order.json"
         }
       ],
@@ -37,7 +44,8 @@
           "spec": "https://ucp.dev/2026-08-25/specification/shopping/extensions/fulfillment/",
           "schema": "https://ucp.dev/2026-08-25/schemas/shopping/fulfillment.json",
           "extends": [
-            "dev.ucp.shopping.checkout"
+            "dev.ucp.shopping.checkout",
+            "dev.ucp.shopping.cart"
           ],
           "requires": {
             "protocol": {
@@ -52,7 +60,8 @@
           "spec": "https://ucp.dev/2026-08-25/specification/shopping/extensions/buyer-consent/",
           "schema": "https://ucp.dev/2026-08-25/schemas/shopping/buyer_consent.json",
           "extends": [
-            "dev.ucp.shopping.checkout"
+            "dev.ucp.shopping.checkout",
+            "dev.ucp.shopping.cart"
           ],
           "requires": {
             "protocol": {
