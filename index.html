@@ -877,9 +877,9 @@ body.ab-open .ask-birch{display:none}
 <aside class="ab" id="askPanel" aria-labelledby="abTitle" hidden>
   <div class="ab-head">
     <span class="ab-logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="currentColor"/></svg></span>
-    <div class="ab-ttl"><b id="abTitle">Ask Birch</b><span id="abSub">Birchstreet Resort · today</span></div>
+    <div class="ab-ttl"><b id="abTitle">BSS Purchasing agent</b><span id="abSub">Birchstreet Resort · today</span></div>
     <button class="ab-new" type="button" id="abNew">New chat</button>
-    <button class="ab-x" type="button" id="abClose" aria-label="Close Ask Birch">×</button>
+    <button class="ab-x" type="button" id="abClose" aria-label="Close the BSS Purchasing agent">×</button>
   </div>
   <div class="ab-body chat" id="lvChat" aria-live="polite"></div>
   <div class="ab-cart" id="abCart" hidden></div>
@@ -893,7 +893,7 @@ body.ab-open .ask-birch{display:none}
     </div>
     <form class="ab-compose" id="lvForm">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-      <input id="lvInput" autocomplete="off" placeholder="Ask for items, e.g. “paper cups”, or say “place order”" aria-label="Message Ask Birch">
+      <input id="lvInput" autocomplete="off" placeholder="Ask for items, e.g. “paper cups”, or say “place order”" aria-label="Message the BSS Purchasing agent">
       <button class="ab-send" type="submit" id="lvSend" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </form>
   </div>
@@ -1976,7 +1976,7 @@ const PREFERRED = 'restaurantware';  // searched first and shown first in every 
 function msg(who, html){
   const d = document.createElement('div');
   d.className = 'msg ' + who;
-  d.innerHTML = (who === 'agent' ? '<div class="ab-who"><i aria-hidden="true">✦</i>Ask Birch</div>' : '') + `<div class="bubble">${html}</div>`;
+  d.innerHTML = (who === 'agent' ? '<div class="ab-who"><i aria-hidden="true">✦</i>BSS Purchasing agent</div>' : '') + `<div class="bubble">${html}</div>`;
   $('#lvChat').appendChild(d); $('#lvChat').scrollTop = $('#lvChat').scrollHeight;
   return d.querySelector('.bubble');
 }
@@ -2385,7 +2385,7 @@ async function handle(text){
 }
 function greet(){
   $('#lvChat').innerHTML = '';
-  msg('agent', `<p>Hi${window.BSS_USER ? ' ' + esc(window.BSS_USER.name.split(' ')[0]) : ''}, I’m Ask Birch. Tell me what you need to buy and I’ll recommend items from ${Object.keys(STORES).length} UCP suppliers that aren’t in the BirchStreet catalog, starting with <b>Restaurantware</b>, your preferred supplier.</p><p class="muted">Try “2 cases of paper cups”, “dinnerware” or “bamboo skewers”.</p>`);
+  msg('agent', `<p>Hi${window.BSS_USER ? ' ' + esc(window.BSS_USER.name.split(' ')[0]) : ''}, I’m the BSS Purchasing agent. Tell me what you need to buy and I’ll recommend items from ${Object.keys(STORES).length} UCP suppliers that aren’t in the BirchStreet catalog, starting with <b>Restaurantware</b>, your preferred supplier.</p><p class="muted">Try “2 cases of paper cups”, “dinnerware” or “bamboo skewers”.</p>`);
 }
 function init(){
   if (st.started) return;
@@ -2449,7 +2449,7 @@ function searchFrom(text, scope, where){
   logUser(`Searched “${esc(text)}” from ${esc(where || 'the BirchStreet search bar')} (scope: ${esc(label)})`);
   handle(text);
 }
-function newChat(){ greet(); logUser('Started a new Ask Birch chat'); }
+function newChat(){ greet(); logUser('Started a new BSS Purchasing agent chat'); }
 function setUser(u){
   const parts = (u.name || '').trim().split(/\s+/);
   if (parts[0]) $('#lvFirst').value = parts[0];
