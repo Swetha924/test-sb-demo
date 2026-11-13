@@ -375,7 +375,7 @@ body.on-home .crumb,body.on-home main > h1,body.on-home main > .lede,body.on-hom
         <div class="um-sec">
           <h4>UCP profile</h4>
           <p class="muted" style="font-size:12px;margin:0">The public file that tells stores who BirchStreet is and what it supports. Stores only offer the tools both profiles list.</p>
-          <label class="lv-f" for="lvProfile">Profile URL<input id="lvProfile" value="https://cdn.jsdelivr.net/gh/Swetha924/test-sb-demo@main/test-sb-demo.json"></label>
+          <label class="lv-f" for="lvProfile">Profile URL<input id="lvProfile" value="https://cdn.jsdelivr.net/gh/Swetha924/test-sb-demo@574c1a9/test-sb-demo.json"></label>
           <div id="profStatus" class="prof"><span class="muted">Not checked yet.</span></div>
           <button class="btn sm" type="button" id="profCheck">Check profile</button>
         </div>
@@ -1924,8 +1924,9 @@ async function tool(key, name, args, summarize){
   if (out && Object.keys(out).length === 1 && typeof out.result === 'string') out = JSON.parse(out.result);
   if (!out && res.content && res.content[0]) { try { out = JSON.parse(res.content[0].text); } catch (e) { out = {text: res.content[0].text}; } }
   out = out || {};
-  logCall({store: s.name, label: name, ok: !res.isError, summary: res.isError ? 'error' : summarize(out), ms, method: 'POST', url: s.endpoint, req, res: out});
-  if (res.isError) throw new Error(`${s.name}: ${name} returned an error.`);
+  const errText = res.isError ? ((res.content && res.content[0] && res.content[0].text) || out.text || 'error').slice(0, 200) : '';
+  logCall({store: s.name, label: name, ok: !res.isError, summary: res.isError ? errText : summarize(out), ms, method: 'POST', url: s.endpoint, req, res: out});
+  if (res.isError) throw new Error(`${s.name}: ${name} returned an error (${errText}).`);
   return out;
 }
 const meta = idem => Object.assign({'ucp-agent': {profile: profileUrl()}}, idem ? {'idempotency-key': uuid()} : {});
@@ -2117,8 +2118,10 @@ async function checkoutStore(k, lines, po){
     if (changed.length) html += `<p class="bad">Price changed on ${changed.length} item(s) since search.</p>`;
     const sc = st.storeCarts[k];
     const fromCart = sc && sc.id && !sc.unsupported && !sc.error;
+    // The store requires line_items even when converting a cart, so both are sent.
     const co = await tool(k, 'create_checkout', {meta: meta(true), checkout: Object.assign(
-      fromCart ? {cart_id: sc.id} : {line_items: lines.map(l => ({item: {id: l.variant.id}, quantity: l.qty}))},
+      {line_items: lines.map(l => ({item: {id: l.variant.id}, quantity: l.qty}))},
+      fromCart ? {cart_id: sc.id} : {},
       {buyer: {email: val('#lvEmail')}, context: context(), fulfillment: {methods: [{type: 'shipping', destinations: [shipTo()]}]}}
     )}, o => `checkout ${o.status || ''}`);
     html += callLine(`tools/call create_checkout${fromCart ? ' from the store cart' : ''} → ${co.status}`);
