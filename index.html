@@ -341,6 +341,106 @@ body.on-home .crumb,body.on-home main > h1,body.on-home main > .lede,body.on-hom
 .brand.big svg{width:36px;height:36px}
 .lf{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
 .lf input,.lf select{border:1px solid var(--line);border-radius:6px;padding:9px 10px;font:inherit;color:var(--ink);background:var(--bg)}
+/* Ask Birch side panel, left rail and the Purchasing search page */
+:root{--ab-grad:linear-gradient(90deg,#7a5cf0,#5b3fd1);--ab-soft:#f6f3ff;--ab-line:#e4ddfb}
+body{padding-left:64px}
+.rail{position:fixed;left:0;top:0;bottom:0;width:64px;z-index:4;background:var(--bg);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:calc(76px + env(safe-area-inset-top,0px))}
+.rail a,.rail button{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;color:var(--navy);border:0;background:none;cursor:pointer}
+.rail a svg,.rail button svg{width:22px;height:22px}
+.rail a:hover,.rail button:hover{background:var(--soft)}
+.rail a.on{background:var(--tile);color:var(--navy)}
+@media (max-width:700px){body{padding-left:0}.rail{display:none}}
+body.on-standalone main > h1,body.on-standalone main > .lede,body.on-standalone main > .tabs{display:none}
+/* panel */
+.ab{position:fixed;top:0;right:0;bottom:0;z-index:15;width:min(620px,100vw);background:var(--bg);border-left:1px solid var(--line);box-shadow:-12px 0 40px rgba(29,36,51,.14);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.ab-head{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.ab-logo{width:38px;height:38px;border-radius:10px;background:var(--ab-grad);color:#fff;display:grid;place-items:center;flex:none}
+.ab-logo svg{width:18px;height:18px}
+.ab-ttl{display:flex;flex-direction:column;min-width:0;flex:1}
+.ab-ttl b{font-size:17px}
+.ab-ttl span{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.02em}
+.ab-new{border:1px solid var(--line);background:var(--bg);color:var(--navy);border-radius:8px;padding:6px 12px;font:inherit;font-weight:600;font-size:13px;cursor:pointer}
+.ab-x{border:0;background:none;font-size:26px;line-height:1;color:var(--muted);cursor:pointer;padding:0 4px}
+.ab-body.chat{flex:1;min-height:0;max-height:none;overflow-y:auto;border:0;border-radius:0;background:var(--bg);padding:20px 20px 8px;gap:16px}
+.ab .msg.user{justify-content:flex-end}
+.ab .msg.user .bubble{background:var(--ab-grad);color:#fff;border-radius:22px;padding:10px 18px;max-width:85%;font-size:15px}
+.ab .msg.agent{flex-direction:column;gap:6px}
+.ab .msg.agent .avatar{display:none}
+.ab .msg.agent .bubble{background:none;padding:0;border-radius:0;font-size:15px;line-height:1.55;color:var(--ink);width:100%}
+.ab-who{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--ink)}
+.ab-who i{width:24px;height:24px;border-radius:7px;background:var(--ab-soft);color:var(--chat-accent);display:grid;place-items:center;font-style:normal;font-size:12px}
+.ab-ctx{display:inline-flex;align-items:center;gap:8px;border:1px solid #cfe6d7;background:var(--ok-bg);color:var(--ok);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;margin:0 0 8px}
+.ab-ctx span{color:var(--muted);font-weight:400}
+.ab-tools{display:inline-block;margin:0 0 8px}
+.ab-tools summary{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:13px;color:var(--muted);cursor:pointer;list-style:none}
+.ab-tools summary::-webkit-details-marker{display:none}
+.ab-tools summary::before{content:"›";font-weight:700}
+.ab-tools[open] summary::before{content:"⌄"}
+.ab-tools ul{margin:6px 0 0;padding:8px 12px;list-style:none;background:var(--soft);border-radius:8px;font:12px/1.5 var(--mono);color:var(--muted)}
+.ab-card{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:12px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.ab-card.pref{border-color:var(--chat-accent);box-shadow:0 0 0 1px var(--chat-accent) inset}
+.ab-card-top{display:flex;gap:12px;align-items:flex-start}
+.ab-card-top img{width:64px;height:64px;border-radius:8px;object-fit:cover;background:var(--soft);flex:none}
+.ab-eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ab-badge{font-size:11px;font-weight:700;border-radius:999px;padding:1px 9px;background:var(--ok-bg);color:var(--ok);letter-spacing:0;text-transform:none}
+.ab-badge.pref{background:var(--ab-soft);color:var(--chat-accent)}
+.ab-badge.no{background:var(--bad-bg);color:var(--bad)}
+.ab-card h4{margin:2px 0 0;font-size:17px;line-height:1.3}
+.ab-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px 18px;border-top:1px solid var(--line);padding-top:10px}
+.ab-fields dt{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ab-fields dd{margin:2px 0 0;font-size:15px;font-variant-numeric:tabular-nums}
+.ab-fields select{max-width:100%;border:1px solid var(--line);border-radius:6px;padding:3px 6px;font:inherit;font-size:13px}
+.ab-fields input[type=number]{width:64px;border:1px solid var(--line);border-radius:6px;padding:3px 6px;font:inherit}
+.ab-acts{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.ab-acts a{color:var(--chat-accent);font-weight:600;text-decoration:none;font-size:14px}
+.ab-acts a::before{content:"↗ "}
+.ab-other{border:1px solid var(--line);border-radius:12px;margin-top:12px;overflow:hidden}
+.ab-other-h{display:flex;align-items:center;gap:10px;padding:12px 18px;font-weight:700}
+.ab-count{background:#e6effc;color:#2453a6;border-radius:999px;padding:1px 10px;font-size:12px;font-weight:700}
+.ab-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:10px 18px;border-top:1px solid var(--line);font-size:14px}
+.ab-row .s{font:600 12px/1.4 var(--mono);color:var(--chat-accent)}
+.ab-row .p{font-weight:700;font-variant-numeric:tabular-nums}
+.ab-cart{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 16px;padding:10px 14px;border:1px solid var(--ab-line);background:var(--ab-soft);border-radius:10px;font-size:14px}
+.ab-cart b{font-variant-numeric:tabular-nums}
+.ab-cart .sp{flex:1}
+.ab-foot{padding:10px 16px 16px;display:flex;flex-direction:column;gap:8px}
+.ab-chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.ab-scope{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted)}
+.ab-scope b{color:var(--ink);font-weight:600;font-size:12px}
+.ab-chip{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:3px 10px;font:inherit;font-size:12px;cursor:pointer;color:var(--ink)}
+.ab-chip:hover{border-color:var(--chat-accent);color:var(--chat-accent)}
+.ab-compose{display:flex;align-items:center;gap:10px;border:1.5px solid #cfc3f7;border-radius:14px;padding:8px 8px 8px 14px;box-shadow:0 0 0 4px #f1edfd}
+.ab-compose:focus-within{border-color:var(--chat-accent)}
+.ab-compose > svg{width:18px;height:18px;color:var(--muted);flex:none}
+.ab-compose input{flex:1;min-width:0;border:0;outline:0;font:inherit;font-size:15px;background:transparent;color:var(--ink);padding:8px 0}
+.ab-send{width:40px;height:40px;border:0;border-radius:10px;background:var(--ab-grad);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none}
+.ab-send svg{width:18px;height:18px}
+.ab-send:disabled{opacity:.5}
+.ab .lv-result{border-radius:12px;padding:14px 16px}
+.ab .lv-store-h{margin:14px 0 4px}
+/* live tab without the inline chat */
+.lv-ask{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:1px solid var(--ab-line);background:var(--ab-soft);border-radius:10px;padding:12px 16px;margin-bottom:16px}
+.lv-ask > div{flex:1;min-width:0;display:flex;flex-direction:column}
+.lv-lower{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:900px){.lv-lower{grid-template-columns:1fr}}
+/* purchasing search page */
+.ps-hero{border:1px solid var(--tile-line);background:var(--tile);border-radius:8px;padding:28px 28px 22px;display:flex;flex-direction:column;gap:10px}
+.ps-hero h2{margin:0;font-size:26px}
+.ps-hero p{margin:0;max-width:70ch}
+.ps-search{display:flex;align-items:center;gap:8px;background:var(--bg);border:1.5px solid #cfc3f7;border-radius:12px;padding:6px 6px 6px 14px;box-shadow:0 0 0 4px #f1edfd;margin-top:6px}
+.ps-search svg{width:20px;height:20px;color:var(--muted);flex:none}
+.ps-search input{flex:1;min-width:0;border:0;outline:0;font:inherit;font-size:17px;padding:10px 0;background:transparent;color:var(--ink)}
+.ps-search select{border:0;border-left:1px solid var(--line);background:transparent;font:inherit;font-size:13px;color:var(--muted);max-width:230px;padding:6px}
+.ps-cats{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px}
+.ps-cat{border:1px solid var(--tile-line);background:var(--bg);border-radius:999px;padding:5px 14px;font:inherit;font-size:13px;cursor:pointer;color:var(--navy)}
+.ps-cat:hover{border-color:var(--chat-accent);color:var(--chat-accent)}
+.ps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px}
+.ps-pref,.ps-how{border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+.ps-pref{display:flex;gap:14px;align-items:flex-start;border-color:var(--chat-accent);box-shadow:0 0 0 1px var(--chat-accent) inset}
+.ps-pref h3{margin:4px 0;font-size:20px}
+.ps-pref p,.ps-how ol{margin:0}
+.ps-how ol{padding-left:18px;display:flex;flex-direction:column;gap:6px;margin-top:8px}
+body.ab-open .ask-birch{display:none}
 </style>
 </head>
 <body>
@@ -404,6 +504,15 @@ body.on-home .crumb,body.on-home main > h1,body.on-home main > .lede,body.on-hom
     </div>
   </div>
 </header>
+<!-- Left navigation rail -->
+<nav class="rail" aria-label="Main">
+  <a href="#home" data-tab="home" data-rail="home" title="Home" aria-label="Home"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></a>
+  <a href="#purchasing" data-tab="purchasing" data-rail="purchasing" title="Purchasing: search items" aria-label="Purchasing: search items"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 7H6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19" r="1.4" fill="currentColor"/><circle cx="17" cy="19" r="1.4" fill="currentColor"/></svg></a>
+  <a href="#live" data-tab="live" data-rail="live" title="Live UCP suppliers" aria-label="Live UCP suppliers"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+  <a href="#overview" data-tab="overview" data-rail="overview" title="Supplier ordering options" aria-label="Supplier ordering options"><svg viewBox="0 0 24 24"><path d="M5 5h14M5 12h14M5 19h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+  <a href="#usfoods" data-tab="usfoods" data-rail="usfoods" title="AI suggested orders" aria-label="AI suggested orders"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 8h6M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+  <button type="button" data-ab-open title="Ask Birch" aria-label="Ask Birch"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
+</nav>
 
 
 <main class="wrap">
@@ -430,7 +539,8 @@ body.on-home .crumb,body.on-home main > h1,body.on-home main > .lede,body.on-hom
         <h3>Purchasing</h3>
         <button class="btn primary" type="button" data-hm-menu="pur">Quick Links <span aria-hidden="true">≡</span></button>
         <div class="hm-menu" id="hmMenu-pur" hidden>
-          <a href="#live" data-tab="live">Search UCP suppliers <span class="live-tag">LIVE</span></a>
+          <a href="#purchasing" data-tab="purchasing">Search items <span class="live-tag">LIVE</span></a>
+          <a href="#live" data-tab="live">UCP suppliers and cart</a>
           <a href="#overview" data-tab="overview">Supplier ordering options</a>
           <a href="#usfoods" data-tab="usfoods">AI suggested orders</a>
           <a href="#sysco" data-tab="sysco">Punchout catalogs</a>
@@ -472,8 +582,8 @@ body.on-home .crumb,body.on-home main > h1,body.on-home main > .lede,body.on-hom
 
     <div class="hm-ai live">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      <div><span class="muted" style="font-size:12px">UCP suppliers <span class="live-tag">LIVE</span></span><b>Search 16 suppliers that aren’t in the BirchStreet catalog, from the search bar above</b></div>
-      <button class="btn" type="button" data-tab="live">Open live UCP suppliers ›</button>
+      <div><span class="muted" style="font-size:12px">UCP suppliers <span class="live-tag">LIVE</span></span><b>Search items from 16 suppliers that aren’t in the BirchStreet catalog. Restaurantware first.</b></div>
+      <button class="btn" type="button" data-tab="purchasing">Search items ›</button>
     </div>
 
     <div class="hm-bottom">
@@ -481,7 +591,42 @@ body.on-home .crumb,body.on-home main > h1,body.on-home main > .lede,body.on-hom
       <div class="hm-box"><h3>Announcements <span class="hm-badge">2</span></h3><b>BirchStreet New Functionality - Recurring POs</b><p class="muted" style="margin:4px 0 0">Create recurring (standing) POs in a few clicks, generate several POs at once, and send them to suppliers with different delivery dates.</p></div>
     </div>
   </section>
-  <button class="ask-birch" type="button" data-tab="live" id="askBirch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Ask Birch</button>
+  <button class="ask-birch" type="button" data-ab-open id="askBirch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Ask Birch</button>
+
+  <!-- Purchasing: search for items; Ask Birch recommends from UCP suppliers, Restaurantware first -->
+  <section id="p-purchasing" role="tabpanel" aria-label="Purchasing search" hidden>
+    <div class="ps-hero">
+      <span class="eyebrow">Purchasing · Search items</span>
+      <h2>What do you need to buy?</h2>
+      <p class="muted">Ask Birch searches suppliers that aren’t in the BirchStreet catalog, live over UCP, and recommends items. Restaurantware, your preferred supplier, comes first.</p>
+      <form class="ps-search" id="psForm" role="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="psQ" placeholder="Type an item, e.g. 2 cases of paper cups" aria-label="Item name" autocomplete="off">
+        <select id="psScope" aria-label="Search in"></select>
+        <button class="btn primary" type="submit">Search</button>
+      </form>
+      <div class="ps-cats"><span class="muted">Popular:</span>
+        <button class="ps-cat" type="button" data-ps="paper cups">Paper cups</button>
+        <button class="ps-cat" type="button" data-ps="to-go containers">To-go containers</button>
+        <button class="ps-cat" type="button" data-ps="dinnerware">Dinnerware</button>
+        <button class="ps-cat" type="button" data-ps="bamboo skewers">Bamboo skewers</button>
+        <button class="ps-cat" type="button" data-ps="bath towels">Bath towels</button>
+        <button class="ps-cat" type="button" data-ps="whole bean coffee">Coffee</button>
+      </div>
+    </div>
+    <div class="ps-grid">
+      <article class="ps-pref">
+        <span class="lv-mono g-fnb" aria-hidden="true">R</span>
+        <div><span class="eyebrow">Preferred supplier · UCP <span class="live-tag">LIVE</span></span>
+          <h3>Restaurantware</h3>
+          <p class="muted">Takeout containers, cups, plates, skewers and tabletop. Searched first and shown first in every recommendation.</p></div>
+      </article>
+      <article class="ps-how">
+        <span class="eyebrow">How it works</span>
+        <ol><li>Type an item. Ask Birch searches Restaurantware first, then the other UCP suppliers.</li><li>Add a recommendation to the cart. The cart is created at the store over UCP.</li><li>Say “place order”. BirchStreet applies policy and opens a real checkout.</li></ol>
+      </article>
+    </div>
+  </section>
 
   <!-- Overview -->
   <section id="p-overview" role="tabpanel" aria-labelledby="tab-overview">
@@ -728,37 +873,47 @@ body.on-home .crumb,body.on-home main > h1,body.on-home main > .lede,body.on-hom
 
   <!-- Live UCP suppliers: real calls from the browser to each store's UCP endpoint -->
   <section id="p-live" role="tabpanel" aria-labelledby="tab-live" hidden>
-    <div class="lv-banner"><span class="live-tag">LIVE</span> Real products, prices, stock, store carts, checkouts and tax from each store's UCP endpoint, called from this page. By default checkouts are canceled, so nothing is bought. Your name menu at the top holds the settings, including the UCP profile and real-order mode.</div>
+    <div class="lv-banner"><span class="live-tag">LIVE</span> Real products, prices, stock, store carts, checkouts and tax from each store's UCP endpoint, called from this page. By default checkouts are canceled, so nothing is bought. Settings, including the UCP profile and real-order mode, are in the menu under your name.</div>
     <div class="lv-net" id="lvNet" role="status" hidden></div>
+    <div class="lv-ask">
+      <div><b>Shop these suppliers with Ask Birch</b><span class="muted">Select suppliers below, or leave none selected to search all of them with Restaurantware first.</span></div>
+      <button class="btn primary" type="button" data-ab-open>Open Ask Birch</button>
+    </div>
     <div class="lv-picker" id="lvPicker" aria-label="Suppliers to search"></div>
-    <div class="split lv-split">
-      <div class="col">
-        <div class="chat-head">
-          <div><span class="eyebrow">BirchStreet purchasing agent · live UCP</span><b>Tell the agent what you need</b></div>
-          <div class="proto"><span>Searching</span><b id="lvCount" style="display:inline;font-size:12px">no supplier selected</b></div>
-        </div>
-        <div class="chat" id="lvChat" aria-live="polite"></div>
-        <form class="composer" id="lvForm">
-          <input id="lvInput" autocomplete="off" placeholder="Select a supplier above first" aria-label="What do you need?">
-          <button class="btn primary" type="submit" id="lvSend">Send</button>
-        </form>
-        <div class="chips"><span>Try:</span>
-          <button class="chip" type="button" data-lv-text="6 white bath towels">6 white bath towels</button>
-          <button class="chip" type="button" data-lv-text="2 cases of to-go containers">2 cases of to-go containers</button>
-          <button class="chip" type="button" data-lv-text="hand soap refills">Hand soap refills</button>
-          <button class="chip" type="button" data-lv-text="2 bags of whole bean coffee">2 bags of whole bean coffee</button>
-          <button class="chip" type="button" data-lv-text="place order">Place order</button>
-        </div>
-      </div>
-      <aside class="lv-side">
-        <section class="lv-card" aria-labelledby="lvCartH"><h3 id="lvCartH">Cart <span class="pill" id="lvLimit">Limit $75</span></h3><div id="lvCart"><span class="muted">Empty. Search, then choose Add to cart.</span></div></section>
-        <section class="lv-card" aria-labelledby="lvLogH"><h3 id="lvLogH">Activity log <button class="link" type="button" data-lv-act="clearlog">Clear</button></h3><p class="muted" style="font-size:12px;margin:-4px 0 8px">What you typed and did, then every UCP call it caused, in order.</p><div class="lv-log" id="lvLog"><span class="muted">Nothing yet. Search for an item to start.</span></div></section>
-      </aside>
+    <div class="lv-lower">
+      <section class="lv-card" aria-labelledby="lvCartH"><h3 id="lvCartH">Cart <span class="pill" id="lvLimit">Limit $75</span></h3><div id="lvCart"><span class="muted">Empty. Ask Birch for items, then choose Add to cart.</span></div></section>
+      <section class="lv-card" aria-labelledby="lvLogH"><h3 id="lvLogH">Activity log <button class="link" type="button" data-lv-act="clearlog">Clear</button></h3><p class="muted" style="font-size:12px;margin:-4px 0 8px">What you typed and did, then every UCP call it caused, in order.</p><div class="lv-log" id="lvLog"><span class="muted">Nothing yet. Search for an item to start.</span></div></section>
     </div>
   </section>
 
   <p class="foot"><b>Live UCP suppliers:</b> product names, prices, images, stock, store carts, checkout totals and tax come live from each store's UCP endpoint, called from this page with the BirchStreet platform profile. In trial mode checkouts are canceled right after they are created, so nothing is bought; in real-order mode the buyer pays on the store's own checkout page. PO numbers and manager approval on that tab are demo only, because this page has no BirchStreet backend. <b>DEMO tabs:</b> sample catalog data, prices and order numbers. Walmart is reached over UCP (recommended) or directly over MCP through the Walmart Agent Gateway; Walmart and Grainger endpoints are stand-ins. US Foods price, availability and ordering need an API or EDI agreement with US Foods, the Sysco punchout uses cXML credentials from Sysco, and the Chef's Warehouse JAB agent needs Chef's Warehouse's permission. Orders over $75 need manager approval, the same rule the agent service uses.</p>
 </main>
+<!-- Ask Birch: the purchasing agent, as a side panel available on every page -->
+<aside class="ab" id="askPanel" aria-labelledby="abTitle" hidden>
+  <div class="ab-head">
+    <span class="ab-logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="currentColor"/></svg></span>
+    <div class="ab-ttl"><b id="abTitle">Ask Birch</b><span id="abSub">Birchstreet Resort · today</span></div>
+    <button class="ab-new" type="button" id="abNew">New chat</button>
+    <button class="ab-x" type="button" id="abClose" aria-label="Close Ask Birch">×</button>
+  </div>
+  <div class="ab-body chat" id="lvChat" aria-live="polite"></div>
+  <div class="ab-cart" id="abCart" hidden></div>
+  <div class="ab-foot">
+    <div class="ab-chips">
+      <span class="ab-scope"><span class="lv-dot ok"></span>UCP live · <b id="lvCount">Restaurantware first</b></span>
+      <button class="ab-chip" type="button" data-lv-text="paper cups">Paper cups</button>
+      <button class="ab-chip" type="button" data-lv-text="2 cases of to-go containers">To-go containers</button>
+      <button class="ab-chip" type="button" data-lv-text="dinnerware">Dinnerware</button>
+      <button class="ab-chip" type="button" data-lv-text="place order">Place order</button>
+    </div>
+    <form class="ab-compose" id="lvForm">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      <input id="lvInput" autocomplete="off" placeholder="Ask for items, e.g. “paper cups”, or say “place order”" aria-label="Message Ask Birch">
+      <button class="ab-send" type="submit" id="lvSend" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </form>
+  </div>
+</aside>
+
 
 <script>
 (function(){
@@ -789,8 +944,8 @@ function approvalBlock(po){
 }
 
 /* ---------------- Tabs ---------------- */
-const TABS = ['home', 'overview', 'walmart', 'usfoods', 'grainger', 'sysco', 'chefs', 'live'];
-const NAMES = {overview:'Supplier examples', walmart:'Walmart', usfoods:'US Foods', grainger:'Grainger', sysco:'Sysco', chefs:'Chef\'s Warehouse', live:'Live UCP suppliers', home:'Home'};
+const TABS = ['home', 'purchasing', 'overview', 'walmart', 'usfoods', 'grainger', 'sysco', 'chefs', 'live'];
+const NAMES = {overview:'Supplier examples', walmart:'Walmart', usfoods:'US Foods', grainger:'Grainger', sysco:'Sysco', chefs:'Chef\'s Warehouse', live:'Live UCP suppliers', home:'Home', purchasing:'Search items'};
 function show(tab){
   if (['brooklinen','parachute','deathwish'].includes(tab)) tab = 'live';
   if (!TABS.includes(tab)) tab = 'home';
@@ -800,6 +955,7 @@ function show(tab){
   });
   $('#crumbHere').textContent = NAMES[tab];
   document.body.classList.toggle('on-home', tab === 'home');
+  document.body.classList.toggle('on-standalone', tab === 'home' || tab === 'purchasing');
   if (tab === 'chefs' && !jb.started) jbRun();  // the prediction is ready, so JAB starts on its own
   try { history.replaceState(null, '', '#' + tab); } catch (e) {}
   window.scrollTo(0, 0);
@@ -1806,8 +1962,7 @@ function renderPicker(){
             <span class="lv-sup-meta">${esc(host(s.site))}</span>
             <span class="lv-sup-status" data-lv-status="${k}">${statusHtml(s)}</span></span>
         </button>`; }).join('')}</div></div>`).join('');
-  $('#lvCount').textContent = n === 0 ? 'no supplier selected' : n === total ? `all ${n} suppliers` : n === 1 ? STORES[[...st.selected][0]].name : `${n} suppliers`;
-  $('#lvInput').placeholder = n === 0 ? 'Select a supplier above first' : 'e.g. 6 white bath towels';
+  $('#lvCount').textContent = n === 0 || n === total ? `all ${total} suppliers, Restaurantware first` : n === 1 ? STORES[[...st.selected][0]].name : `${n} selected suppliers`;
 }
 function paintStatus(k){ const el = document.querySelector(`[data-lv-status="${k}"]`); if (el) el.innerHTML = statusHtml(STORES[k]); }
 async function checkAll(force){
@@ -1831,10 +1986,11 @@ async function checkAll(force){
 }
 
 /* ---------- chat ---------- */
+const PREFERRED = 'restaurantware';  // searched first and shown first in every recommendation
 function msg(who, html){
   const d = document.createElement('div');
   d.className = 'msg ' + who;
-  d.innerHTML = (who === 'agent' ? '<span class="avatar" aria-hidden="true">AI</span>' : '') + `<div class="bubble">${html}</div>`;
+  d.innerHTML = (who === 'agent' ? '<div class="ab-who"><i aria-hidden="true">✦</i>Ask Birch</div>' : '') + `<div class="bubble">${html}</div>`;
   $('#lvChat').appendChild(d); $('#lvChat').scrollTop = $('#lvChat').scrollHeight;
   return d.querySelector('.bubble');
 }
@@ -1862,6 +2018,7 @@ function logSys(text){
   box.appendChild(d); box.scrollTop = box.scrollHeight;
 }
 function logCall(e){
+  if (st.turn) st.turn.push(e);
   const box = logBox(), d = document.createElement('div');
   d.className = 'e';
   d.innerHTML = `<div class="eh"><span class="n">${++logSeq}</span><b>${esc(e.store)}</b><span class="muted">${clock()} · ${e.ms} ms</span></div>
@@ -1960,45 +2117,79 @@ function thumb(media){
   try { const u = new URL(m.url); if (u.hostname.endsWith('shopify.com')) u.searchParams.set('width', '112'); return u.href; } catch (e) { return null; }
 }
 
-/* ---------- search ---------- */
+/* ---------- search: recommend items, Restaurantware first ---------- */
+function productCard(o, prod, p, preferred){
+  const id = 'r' + (++st.rowSeq), v = bestVariant(prod, p.query), s = STORES[o.k];
+  st.rows[id] = {store: o.k, product: prod};
+  const img = thumb(v.media && v.media.length ? v.media : prod.media);
+  const vs = prod.variants || [];
+  const opts = vs.slice(0, 40).map(x => `<option value="${esc(x.id)}" ${x.id === v.id ? 'selected' : ''}>${esc(x.title)} · ${money(x.price && x.price.amount)}${x.availability && x.availability.available === false ? ' · not available' : ''}</option>`).join('');
+  const av = v.availability && v.availability.available === false;
+  return `<div class="ab-card${preferred ? ' pref' : ''}">
+    <div class="ab-card-top">${img ? `<img src="${esc(img)}" alt="" loading="lazy">` : ''}
+      <div><div class="ab-eyebrow">${esc(s.name)} · UCP ${preferred ? '<span class="ab-badge pref">Preferred supplier</span>' : ''}<span class="ab-badge${av ? ' no' : ''}" id="lva${id}">${av ? 'Not available' : 'Available'}</span></div>
+      <h4>${esc(prod.title)}</h4></div></div>
+    <dl class="ab-fields"><div><dt>Price</dt><dd><b class="lv-price" id="lvp${id}">${money(v.price && v.price.amount)}</b></dd></div>
+      <div><dt>Option</dt><dd>${vs.length > 1 ? `<select id="lvv${id}" data-lv-variant="${id}" aria-label="Option for ${esc(prod.title)}">${opts}</select>` : `<input type="hidden" id="lvv${id}" value="${esc(v.id)}">${esc(v.title === 'Default Title' ? 'Standard' : v.title)}`}</dd></div>
+      <div><dt>Quantity</dt><dd><input type="number" id="lvq${id}" min="1" max="99" value="${p.qty}" aria-label="Quantity"></dd></div></dl>
+    <div class="ab-acts"><button class="btn primary sm" type="button" data-lv-add="${id}">Add to cart</button>${prod.url ? `<a href="${esc(prod.url)}" target="_blank" rel="noopener">View on ${esc(s.name)}</a>` : ''}</div>
+  </div>`;
+}
+function productRow(o, prod, p){
+  const id = 'r' + (++st.rowSeq), v = bestVariant(prod, p.query), s = STORES[o.k];
+  st.rows[id] = {store: o.k, product: prod};
+  return `<div class="ab-row"><div><div class="s">${esc(s.name)}</div>${prod.url ? `<a href="${esc(prod.url)}" target="_blank" rel="noopener" style="color:var(--ink)">${esc(prod.title)}</a>` : esc(prod.title)}<input type="hidden" id="lvv${id}" value="${esc(v.id)}"></div>
+    <span class="p" id="lvp${id}">${money(v.price && v.price.amount)}</span>
+    <span style="display:flex;gap:6px;align-items:center"><input class="lv-qty" type="number" id="lvq${id}" min="1" max="99" value="${p.qty}" aria-label="Quantity"><button class="btn sm" type="button" data-lv-add="${id}">Add</button></span></div>`;
+}
+/* Stores return loose matches; keep products whose title has the item asked for (the last word of the request). */
+const norm = t => ' ' + String(t || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ') + ' ';
+const sing = w => w.length > 3 && w.endsWith('ies') ? w.slice(0, -3) + 'y' : w.length > 3 && w.endsWith('es') && /(ch|sh|x|ss)es$/.test(w) ? w.slice(0, -2) : w.length > 3 && w.endsWith('s') && !w.endsWith('ss') ? w.slice(0, -1) : w;
+function relevant(prod, query){
+  const toks = norm(query).trim().split(' ').filter(t => t.length > 2).map(sing);
+  if (!toks.length) return true;
+  const title = norm(prod.title + ' ' + (prod.variants || []).slice(0, 6).map(v => v.title).join(' ')).split(' ').map(sing).join(' ');
+  const has = t => title.includes(' ' + t + ' ');
+  const rest = toks.slice(0, -1);
+  return has(toks[toks.length - 1]) && rest.filter(has).length >= Math.min(rest.length, 2);
+}
 async function search(text){
   const parts = parseRequest(text);
-  if (!parts.length){ msg('agent', '<p>Tell me what you need, for example "6 white bath towels".</p>'); return; }
-  const keys = [...st.selected];
-  if (!keys.length){ msg('agent', '<p>Select a supplier card above first, then tell me what you need. You can select more than one.</p>'); return; }
-  const bubble = msg('agent', `<p class="muted lv-typing">Searching ${keys.length} supplier${keys.length === 1 ? '' : 's'} over UCP</p>`);
+  if (!parts.length){ msg('agent', '<p>Tell me what you need, for example “2 cases of paper cups”.</p>'); return; }
+  let keys = [...st.selected];
+  const all = !keys.length;
+  if (all) keys = Object.keys(STORES);
+  keys.sort((a, b) => (b === PREFERRED) - (a === PREFERRED));  // Restaurantware first
+  const bubble = msg('agent', `<p class="muted lv-typing">Searching ${keys.includes(PREFERRED) ? 'Restaurantware first, then ' : ''}${keys.length} UCP supplier${keys.length === 1 ? '' : 's'}</p>`);
+  st.turn = [];
   let html = '';
   for (const p of parts){
-    html += `<p><b>${p.qty} × ${esc(p.query)}</b></p>`;
     const outs = await Promise.all(keys.map(async k => {
       try {
         const out = await tool(k, 'search_catalog', {meta: meta(false), catalog: {query: p.query, context: context(), pagination: {limit: 4}}}, o => `${(o.products || []).length} products`);
-        return {k, products: out.products || []};
+        const all = out.products || [];
+        return {k, products: all.filter(prod => relevant(prod, p.query)), loose: all.length};
       } catch (err){ return {k, error: err.message}; }
     }));
-    const hits = outs.filter(o => o.products && o.products.length), none = outs.filter(o => o.products && !o.products.length), errs = outs.filter(o => o.error);
-    const per = keys.length > 3 ? 2 : 3;
-    html += callLine(`tools/call search_catalog "${p.query}" at ${keys.length} store${keys.length === 1 ? '' : 's'} → matches at ${hits.length}`);
-    for (const o of hits){
-      html += `<div class="lv-store-h"><span class="lv-mono sm g-${STORES[o.k].group}" aria-hidden="true">${esc(initials(STORES[o.k].name))}</span>${esc(STORES[o.k].name)}<span class="ucp-tag">UCP</span></div><div class="lv-results">` + o.products.slice(0, per).map(prod => {
-        const id = 'r' + (++st.rowSeq), v = bestVariant(prod, p.query);
-        st.rows[id] = {store: o.k, product: prod};
-        const img = thumb(v.media && v.media.length ? v.media : prod.media);
-        const vs = prod.variants || [];
-        const opts = vs.slice(0, 40).map(x => `<option value="${esc(x.id)}" ${x.id === v.id ? 'selected' : ''}>${esc(x.title)} · ${money(x.price && x.price.amount)}${x.availability && x.availability.available === false ? ' · not available' : ''}</option>`).join('');
-        const av = v.availability && v.availability.available === false;
-        return `<div class="lv-prod">${img ? `<img src="${esc(img)}" alt="" loading="lazy">` : '<span></span>'}
-          <div><div class="ti">${esc(prod.title)}</div>
-          <div class="meta"><span class="lv-price" id="lvp${id}">${money(v.price && v.price.amount)}</span> · <span class="${av ? 'av-no' : 'av-ok'}" id="lva${id}">${av ? 'Not available' : 'Available'}</span>${prod.url ? ` · <a href="${esc(prod.url)}" target="_blank" rel="noopener">View on ${esc(STORES[o.k].name)}</a>` : ''}</div>
-          <div class="row">${vs.length > 1 ? `<select id="lvv${id}" data-lv-variant="${id}" aria-label="Option for ${esc(prod.title)}">${opts}</select>` : `<input type="hidden" id="lvv${id}" value="${esc(v.id)}">`}
-          <input type="number" id="lvq${id}" min="1" max="99" value="${p.qty}" aria-label="Quantity">
-          <button class="btn primary sm" type="button" data-lv-add="${id}">Add to cart</button></div></div></div>`;
-      }).join('') + '</div>';
-    }
-    if (none.length) html += `<p class="muted" style="font-size:12px;margin-top:8px">No matches at ${none.map(o => esc(STORES[o.k].name)).join(', ')}.</p>`;
+    const pref = outs.find(o => o.k === PREFERRED && o.products && o.products.length);
+    const others = outs.filter(o => o.k !== PREFERRED && o.products && o.products.length);
+    const errs = outs.filter(o => o.error);
+    if (parts.length > 1) html += `<p style="margin-top:10px"><b>${p.qty} × ${esc(p.query)}</b></p>`;
+    html += pref
+      ? `<p>For <b>${esc(p.query)}</b>, I recommend <b>Restaurantware</b>, your preferred supplier: ${pref.products.length} match${pref.products.length === 1 ? '' : 'es'}, live prices below.${others.length ? ` ${others.length} other UCP supplier${others.length === 1 ? ' also has' : 's also have'} matches.` : ''}</p>`
+      : `<p>${keys.includes(PREFERRED) ? 'Restaurantware has no match for' : 'Here’s what I found for'} <b>${esc(p.query)}</b>${keys.includes(PREFERRED) ? `. ${others.length ? `Here’s what ${others.length} other UCP supplier${others.length === 1 ? ' has' : 's have'}.` : 'No other supplier has it either.'}` : '.'}</p>`;
+    if (pref) html += pref.products.slice(0, 3).map(prod => productCard(pref, prod, p, true)).join('');
+    else if (others.length) html += productCard(others[0], others[0].products[0], p, false);
+    const rest = pref ? others : others.map((o, i) => i === 0 ? {...o, products: o.products.slice(1)} : o).filter(o => o.products.length);
+    const rows = [];
+    rest.forEach(o => o.products.slice(0, 2).forEach(prod => rows.push([o, prod])));
+    if (rows.length) html += `<div class="ab-other"><div class="ab-other-h">Other matching items <span class="ab-count">${rows.length}</span></div>${rows.slice(0, 8).map(([o, prod]) => productRow(o, prod, p)).join('')}${rows.length > 8 ? `<div class="ab-row muted" style="display:block">${rows.length - 8} more. Narrow the search, or pick suppliers on the UCP suppliers page.</div>` : ''}</div>`;
     if (errs.length) html += errs.map(o => `<p class="bad" style="font-size:12px">${esc(o.error)}</p>`).join('');
   }
-  bubble.innerHTML = html + '<p>Add what you want to the cart, then say "place order".</p>';
+  const calls = st.turn; st.turn = null;
+  const head = `<span class="ab-ctx">UCP catalogs <span>· live from ${keys.length} supplier${keys.length === 1 ? '' : 's'}${keys.includes(PREFERRED) ? ', Restaurantware first' : ''}</span></span><br>
+    <details class="ab-tools"><summary>${calls.length} tool call${calls.length === 1 ? '' : 's'}</summary><ul>${calls.map(c => `<li>${c.ok ? '✓' : '✗'} ${esc(c.store)} · ${esc(c.label)} → ${esc(c.summary)} (${c.ms} ms)</li>`).join('')}</ul></details>`;
+  bubble.innerHTML = head + html + '<p class="muted" style="margin-top:10px">Add what you want to the cart, then say “place order”.</p>';
 }
 function variantOf(id){
   const r = st.rows[id], vid = $('#lvv' + id).value;
@@ -2079,7 +2270,17 @@ function renderCart(){
      <button class="btn primary sm" type="button" data-lv-act="place">Place order</button></div>`;
   updateLimit();
 }
+function renderAbCart(){
+  const bar = $('#abCart'), n = st.cart.filter(l => l.qty > 0).reduce((a, l) => a + l.qty, 0);
+  if (!bar) return;
+  bar.hidden = !n;
+  if (!n) return;
+  const stores = [...new Set(st.cart.filter(l => l.qty > 0).map(l => STORES[l.store].name))];
+  bar.innerHTML = `<span>Cart · <b>${n} item${n === 1 ? '' : 's'}</b> · <b>${money(cartTotal())}</b> <span class="muted">from ${esc(stores.join(', '))}</span></span><span class="sp"></span>
+    <a href="#live" data-tab="live" class="link">View cart</a><button class="btn primary sm" type="button" data-lv-act="place">Place order</button>`;
+}
 function updateLimit(){
+  renderAbCart();
   const over = cartTotal() > limit(), pill = $('#lvLimit');
   pill.className = 'pill ' + (st.cart.length ? (over ? 'warn' : 'ok') : '');
   pill.textContent = st.cart.length ? (over ? `Over $${limit() / 100}: needs approval` : `Within $${limit() / 100}`) : `Limit $${limit() / 100}`;
@@ -2190,17 +2391,20 @@ async function handle(text){
     const isOrder = /^(place( the)? order|check ?out|order it|buy it)\b/i.test(text);
     const scope = [...st.selected].map(k => STORES[k].name);
     logUser(isOrder ? `Typed “${esc(text)}” → placing the order (${$('#lvMode').value === 'real' ? 'real order' : 'trial'})`
-      : `Typed “${esc(text)}” → searching ${scope.length ? esc(scope.length > 3 ? scope.length + ' suppliers' : scope.join(', ')) : 'no supplier (none selected)'}`);
+      : `Typed “${esc(text)}” → searching ${scope.length ? esc(scope.length > 3 ? scope.length + ' suppliers' : scope.join(', ')) : 'all UCP suppliers, Restaurantware first'}`);
     if (isOrder) await place();
     else await search(text);
   } catch (err){ msg('agent', `<p class="bad">${esc(err.message)}</p>`); }
   finally { st.busy = false; $('#lvSend').disabled = false; }
 }
+function greet(){
+  $('#lvChat').innerHTML = '';
+  msg('agent', `<p>Hi${window.BSS_USER ? ' ' + esc(window.BSS_USER.name.split(' ')[0]) : ''}, I’m Ask Birch. Tell me what you need to buy and I’ll recommend items from ${Object.keys(STORES).length} UCP suppliers that aren’t in the BirchStreet catalog, starting with <b>Restaurantware</b>, your preferred supplier.</p><p class="muted">Try “2 cases of paper cups”, “dinnerware” or “bamboo skewers”.</p>`);
+}
 function init(){
   if (st.started) return;
   st.started = true;
-  renderPicker(); renderCart();
-  msg('agent', `<p>Hi, I am the BirchStreet purchasing agent. I can search ${Object.keys(STORES).length} suppliers live over UCP: linens, housekeeping and guest amenities, restaurant supplies, coffee and kitchen, and staff shoes.</p><p>Select a supplier above, then tell me what you need, like "6 white bath towels" or "2 cases of to-go containers".</p>`);
+  renderPicker(); renderCart(); greet();
 }
 $('#lvForm').addEventListener('submit', e => { e.preventDefault(); handle($('#lvInput').value); });
 document.addEventListener('click', e => {
@@ -2233,7 +2437,7 @@ document.addEventListener('change', e => {
     const id = sel.dataset.lvVariant, v = variantOf(id);
     $('#lvp' + id).textContent = money(v.price && v.price.amount);
     const av = v.availability && v.availability.available === false;
-    $('#lva' + id).textContent = av ? 'Not available' : 'Available'; $('#lva' + id).className = av ? 'av-no' : 'av-ok';
+    $('#lva' + id).textContent = av ? 'Not available' : 'Available'; $('#lva' + id).className = 'ab-badge' + (av ? ' no' : '');
   }
   if (e.target.id === 'lvRole') updateLimit();
   if (e.target.id === 'lvMode') logUser(`Changed order mode to ${e.target.value === 'real' ? 'real order (buyer pays on the store page)' : 'trial (checkouts canceled)'}`);
@@ -2250,30 +2454,31 @@ document.addEventListener('input', e => {
 });
 
 /* Search started from the BirchStreet header search bar: scope = 'all', a group key, or a store key. */
-function searchFrom(text, scope){
+function searchFrom(text, scope, where){
   const grp = GROUPS.find(g => g.key === scope);
-  const keys = scope === 'all' ? Object.keys(STORES) : grp ? Object.keys(grp.stores) : STORES[scope] ? [scope] : [];
+  const keys = scope === 'all' ? [] : grp ? Object.keys(grp.stores) : STORES[scope] ? [scope] : [];
   st.selected = new Set(keys);
   renderPicker(); checkAll();
-  const label = scope === 'all' ? `all ${keys.length} UCP suppliers` : keys.length === 1 ? STORES[keys[0]].name : (grp || {}).name;
-  logUser(`Searched “${esc(text)}” from the BirchStreet search bar (scope: ${esc(label)})`);
+  const label = scope === 'all' ? `all ${Object.keys(STORES).length} UCP suppliers, Restaurantware first` : keys.length === 1 ? STORES[keys[0]].name : (grp || {}).name;
+  logUser(`Searched “${esc(text)}” from ${esc(where || 'the BirchStreet search bar')} (scope: ${esc(label)})`);
   handle(text);
 }
+function newChat(){ greet(); logUser('Started a new Ask Birch chat'); }
 function setUser(u){
   const parts = (u.name || '').trim().split(/\s+/);
   if (parts[0]) $('#lvFirst').value = parts[0];
   if (parts.length > 1) $('#lvLast').value = parts.slice(1).join(' ');
   logUser(`Signed in as ${esc(u.name)} · ${esc(u.property)}`);
 }
-window.LiveUCP = {init, count: () => Object.keys(STORES).length, searchFrom, setUser, logUser,
-  scopes: () => [{v: 'all', t: `All UCP suppliers (${Object.keys(STORES).length})`}].concat(GROUPS.map(g => ({v: g.key, t: g.name, stores: Object.entries(g.stores).map(([k, s]) => ({v: k, t: s.name}))})))};
+window.LiveUCP = {init, count: () => Object.keys(STORES).length, searchFrom, setUser, logUser, newChat, greet,
+  scopes: () => [{v: 'all', t: `Recommended: Restaurantware first, all ${Object.keys(STORES).length} UCP suppliers`}].concat(GROUPS.map(g => ({v: g.key, t: g.name, stores: Object.entries(g.stores).map(([k, s]) => ({v: k, t: s.name}))})))};
 init();
 if (location.hash === '#live') checkAll();
 window.addEventListener('hashchange', () => { if (location.hash === '#live') checkAll(); });
 })();
 </script>
 <script>
-/* ---------------- Sign-in, Home, header search and the settings menu under the user's name ---------------- */
+/* ---------------- Sign-in, Home, search bars, Ask Birch panel and the settings menu under the user's name ---------------- */
 (function(){
 'use strict';
 const $ = s => document.querySelector(s);
@@ -2284,12 +2489,20 @@ const CAPS = [
   ['dev.ucp.shopping.cart', 'Cart'], ['dev.ucp.shopping.checkout', 'Checkout'], ['dev.ucp.shopping.order', 'Order status'],
   ['dev.ucp.shopping.fulfillment', 'Delivery address'], ['dev.ucp.shopping.buyer_consent', 'Buyer consent']];
 
-function fillScopes(){
-  $('#hdrScope').innerHTML = window.LiveUCP.scopes().map(s => s.stores
+function fillScopes(sel){
+  sel.innerHTML = window.LiveUCP.scopes().map(s => s.stores
     ? `<optgroup label="${esc(s.t)}"><option value="${esc(s.v)}">All ${esc(s.t.toLowerCase())}</option>${s.stores.map(x => `<option value="${esc(x.v)}">${esc(x.t)}</option>`).join('')}</optgroup>`
     : `<option value="${esc(s.v)}">${esc(s.t)}</option>`).join('');
 }
 function go(tab){ if (location.hash === '#' + tab) window.dispatchEvent(new HashChangeEvent('hashchange')); else location.hash = tab; }
+
+/* Ask Birch panel */
+function openAsk(){
+  $('#askPanel').hidden = false; document.body.classList.add('ab-open');
+  setTimeout(() => { const i = $('#lvInput'); if (i) i.focus(); }, 30);
+}
+function closeAsk(){ $('#askPanel').hidden = true; document.body.classList.remove('ab-open'); }
+function askFor(q, scope, where){ openAsk(); window.LiveUCP.searchFrom(q, scope, where); }
 
 /* Reads BirchStreet's hosted UCP profile and shows what it declares; stores only offer tools both sides list. */
 async function checkProfile(fromUser){
@@ -2318,16 +2531,18 @@ function signIn(u, fromStorage){
   $('#welcome').textContent = `Welcome, ${u.name}! What do you want to do?`;
   $('#hdrProp').value = u.property;
   $('#umProp').textContent = u.property;
+  $('#abSub').textContent = `${u.property} · today ${new Date().toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric'})}`;
   $('#login').hidden = true;
   try { sessionStorage.setItem(KEY, JSON.stringify(u)); } catch (e) {}
   window.LiveUCP.setUser(u);
+  window.LiveUCP.greet();
   checkProfile(false);
   if (!fromStorage || !location.hash || location.hash === '#') go('home');
 }
 function signOut(){
   try { sessionStorage.removeItem(KEY); } catch (e) {}
   window.BSS_USER = null;
-  toggleMenu(false);
+  toggleMenu(false); closeAsk();
   $('#login').hidden = false;
   $('#loginName').focus();
 }
@@ -2335,6 +2550,10 @@ function toggleMenu(open){
   const m = $('#userMenu'), b = $('#userBtn');
   const show = open === undefined ? m.hidden : open;
   m.hidden = !show; b.setAttribute('aria-expanded', String(show));
+}
+function markRail(){
+  const t = location.hash.slice(1) || 'home';
+  document.querySelectorAll('[data-rail]').forEach(a => a.classList.toggle('on', a.dataset.rail === t));
 }
 
 $('#loginForm').addEventListener('submit', e => {
@@ -2349,20 +2568,33 @@ $('#hdrSearch').addEventListener('submit', e => {
   e.preventDefault();
   const q = $('#hdrQ').value.trim();
   if (!q) { $('#hdrQ').focus(); return; }
-  go('live');
-  window.LiveUCP.searchFrom(q, $('#hdrScope').value);
+  askFor(q, $('#hdrScope').value, 'the BirchStreet search bar');
   $('#hdrQ').value = '';
 });
+$('#psForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const q = $('#psQ').value.trim();
+  if (!q) { $('#psQ').focus(); return; }
+  askFor(q, $('#psScope').value, 'the Purchasing page');
+  $('#psQ').value = '';
+});
+$('#abClose').addEventListener('click', closeAsk);
+$('#abNew').addEventListener('click', () => window.LiveUCP.newChat());
 document.addEventListener('click', e => {
   if (!e.target.closest('.umenu-wrap')) toggleMenu(false);
   const m = e.target.closest('[data-hm-menu]');
   document.querySelectorAll('.hm-menu').forEach(x => { if (!m || x.id !== 'hmMenu-' + m.dataset.hmMenu) x.hidden = true; });
   if (m){ const box = $('#hmMenu-' + m.dataset.hmMenu); box.hidden = !box.hidden; }
-  if (e.target.closest('#askBirch')) setTimeout(() => { const i = $('#lvInput'); if (i) i.focus(); }, 50);
+  if (e.target.closest('[data-ab-open]')) openAsk();
+  if (e.target.closest('[data-tab]')) setTimeout(markRail, 0);
+  const cat = e.target.closest('[data-ps]');
+  if (cat) askFor(cat.dataset.ps, $('#psScope').value, 'the Purchasing page');
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleMenu(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape'){ toggleMenu(false); closeAsk(); } });
+window.addEventListener('hashchange', markRail);
 
-fillScopes();
+fillScopes($('#hdrScope')); fillScopes($('#psScope'));
+markRail();
 let saved = null;
 try { saved = JSON.parse(sessionStorage.getItem(KEY) || 'null'); } catch (e) {}
 if (saved && saved.name) signIn(saved, true); else $('#login').hidden = false;
