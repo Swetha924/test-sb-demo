@@ -351,6 +351,10 @@ body{padding-left:64px}
 .rail a.on{background:var(--tile);color:var(--navy)}
 @media (max-width:700px){body{padding-left:0}.rail{display:none}}
 body.on-standalone main > h1,body.on-standalone main > .lede,body.on-standalone main > .tabs{display:none}
+body.page-pur main > .pg-opt,body.page-pur main > .tabs{display:none}
+body:not(.page-pur) main > .pg-pur{display:none}
+.pg-h{font-size:16px;margin:22px 0 10px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+#p-live .ps-hero{margin-bottom:6px}
 /* panel */
 .ab{position:fixed;top:0;right:0;bottom:0;z-index:15;width:min(620px,100vw);background:var(--bg);border-left:1px solid var(--line);box-shadow:-12px 0 40px rgba(29,36,51,.14);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 .ab-head{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
@@ -507,9 +511,8 @@ body.ab-open .ask-birch{display:none}
 <!-- Left navigation rail -->
 <nav class="rail" aria-label="Main">
   <a href="#home" data-tab="home" data-rail="home" title="Home" aria-label="Home"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></a>
-  <a href="#purchasing" data-tab="purchasing" data-rail="purchasing" title="Purchasing: search items" aria-label="Purchasing: search items"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 7H6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19" r="1.4" fill="currentColor"/><circle cx="17" cy="19" r="1.4" fill="currentColor"/></svg></a>
-  <a href="#live" data-tab="live" data-rail="live" title="Live UCP suppliers" aria-label="Live UCP suppliers"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
-  <a href="#overview" data-tab="overview" data-rail="overview" title="Supplier ordering options" aria-label="Supplier ordering options"><svg viewBox="0 0 24 24"><path d="M5 5h14M5 12h14M5 19h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+  <a href="#live" data-tab="live" data-rail="live" title="Purchasing: search items and UCP suppliers" aria-label="Purchasing"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 7H6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19" r="1.4" fill="currentColor"/><circle cx="17" cy="19" r="1.4" fill="currentColor"/></svg></a>
+  <a href="#overview" data-tab="overview" data-rail="overview" title="Supplier ordering options: test every flow" aria-label="Supplier ordering options"><svg viewBox="0 0 24 24"><path d="M5 5h14M5 12h14M5 19h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
   <a href="#usfoods" data-tab="usfoods" data-rail="usfoods" title="AI suggested orders" aria-label="AI suggested orders"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 8h6M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
   <button type="button" data-ab-open title="Ask Birch" aria-label="Ask Birch"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
 </nav>
@@ -517,8 +520,10 @@ body.ab-open .ask-birch{display:none}
 
 <main class="wrap">
   <nav class="crumb" aria-label="Breadcrumb"><a href="#home" data-tab="home">Home</a> › <a href="#overview" data-tab="overview">Purchasing</a> › <span id="crumbHere">Supplier examples</span></nav>
-  <h1>Supplier ordering</h1>
-  <p class="lede">How BirchStreet orders from suppliers, all in one place. <span class="live-tag" style="margin-left:0">LIVE</span> calls real stores over UCP from this page. <span class="demo-tag" style="margin-left:0">DEMO</span> tabs show the approach for suppliers without a public UCP profile, with sample data.</p>
+  <h1 class="pg-opt">Supplier ordering options</h1>
+  <h1 class="pg-pur">Purchasing</h1>
+  <p class="lede pg-pur">Search and order from suppliers that aren’t in the BirchStreet catalog. They publish a UCP profile, so products, prices, stock, carts and checkouts are live. Restaurantware is your preferred supplier.</p>
+  <p class="lede pg-opt">Test every way BirchStreet orders from suppliers. <span class="live-tag" style="margin-left:0">LIVE</span> calls real stores over UCP from this page. <span class="demo-tag" style="margin-left:0">DEMO</span> tabs show the approach for suppliers without a public UCP profile, with sample data.</p>
 
   <div class="tabs" role="tablist" aria-label="Suppliers">
     <button role="tab" id="tab-overview" data-tab="overview" aria-selected="true">Overview<small>All flows</small></button>
@@ -527,7 +532,7 @@ body.ab-open .ask-birch{display:none}
     <button role="tab" id="tab-grainger" data-tab="grainger" aria-selected="false">Grainger<span class="demo-tag">DEMO</span><small>Chat assistant searches the catalog</small></button>
     <button role="tab" id="tab-sysco" data-tab="sysco" aria-selected="false">Sysco<span class="demo-tag">DEMO</span><small>Punchout from your list</small></button>
     <button role="tab" id="tab-chefs" data-tab="chefs" aria-selected="false">Chef's Warehouse<span class="demo-tag">DEMO</span><small>JAB agent works the website</small></button>
-    <button role="tab" id="tab-live" data-tab="live" aria-selected="false">Live UCP suppliers<span class="live-tag">LIVE</span><small>16 real stores, real prices</small></button>
+    <button role="tab" id="tab-ucp" data-tab="ucp" aria-selected="false">UCP suppliers<span class="live-tag">LIVE</span><small>16 real stores, same flow as Purchasing</small></button>
   </div>
 
   <!-- Home -->
@@ -539,9 +544,8 @@ body.ab-open .ask-birch{display:none}
         <h3>Purchasing</h3>
         <button class="btn primary" type="button" data-hm-menu="pur">Quick Links <span aria-hidden="true">≡</span></button>
         <div class="hm-menu" id="hmMenu-pur" hidden>
-          <a href="#purchasing" data-tab="purchasing">Search items <span class="live-tag">LIVE</span></a>
-          <a href="#live" data-tab="live">UCP suppliers and cart</a>
-          <a href="#overview" data-tab="overview">Supplier ordering options</a>
+          <a href="#live" data-tab="live">Search items and UCP suppliers <span class="live-tag">LIVE</span></a>
+          <a href="#overview" data-tab="overview">Supplier ordering options (test all flows)</a>
           <a href="#usfoods" data-tab="usfoods">AI suggested orders</a>
           <a href="#sysco" data-tab="sysco">Punchout catalogs</a>
         </div>
@@ -583,7 +587,7 @@ body.ab-open .ask-birch{display:none}
     <div class="hm-ai live">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <div><span class="muted" style="font-size:12px">UCP suppliers <span class="live-tag">LIVE</span></span><b>Search items from 16 suppliers that aren’t in the BirchStreet catalog. Restaurantware first.</b></div>
-      <button class="btn" type="button" data-tab="purchasing">Search items ›</button>
+      <button class="btn" type="button" data-tab="live">Search items ›</button>
     </div>
 
     <div class="hm-bottom">
@@ -592,41 +596,6 @@ body.ab-open .ask-birch{display:none}
     </div>
   </section>
   <button class="ask-birch" type="button" data-ab-open id="askBirch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Ask Birch</button>
-
-  <!-- Purchasing: search for items; Ask Birch recommends from UCP suppliers, Restaurantware first -->
-  <section id="p-purchasing" role="tabpanel" aria-label="Purchasing search" hidden>
-    <div class="ps-hero">
-      <span class="eyebrow">Purchasing · Search items</span>
-      <h2>What do you need to buy?</h2>
-      <p class="muted">Ask Birch searches suppliers that aren’t in the BirchStreet catalog, live over UCP, and recommends items. Restaurantware, your preferred supplier, comes first.</p>
-      <form class="ps-search" id="psForm" role="search">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <input id="psQ" placeholder="Type an item, e.g. 2 cases of paper cups" aria-label="Item name" autocomplete="off">
-        <select id="psScope" aria-label="Search in"></select>
-        <button class="btn primary" type="submit">Search</button>
-      </form>
-      <div class="ps-cats"><span class="muted">Popular:</span>
-        <button class="ps-cat" type="button" data-ps="paper cups">Paper cups</button>
-        <button class="ps-cat" type="button" data-ps="to-go containers">To-go containers</button>
-        <button class="ps-cat" type="button" data-ps="dinnerware">Dinnerware</button>
-        <button class="ps-cat" type="button" data-ps="bamboo skewers">Bamboo skewers</button>
-        <button class="ps-cat" type="button" data-ps="bath towels">Bath towels</button>
-        <button class="ps-cat" type="button" data-ps="whole bean coffee">Coffee</button>
-      </div>
-    </div>
-    <div class="ps-grid">
-      <article class="ps-pref">
-        <span class="lv-mono g-fnb" aria-hidden="true">R</span>
-        <div><span class="eyebrow">Preferred supplier · UCP <span class="live-tag">LIVE</span></span>
-          <h3>Restaurantware</h3>
-          <p class="muted">Takeout containers, cups, plates, skewers and tabletop. Searched first and shown first in every recommendation.</p></div>
-      </article>
-      <article class="ps-how">
-        <span class="eyebrow">How it works</span>
-        <ol><li>Type an item. Ask Birch searches Restaurantware first, then the other UCP suppliers.</li><li>Add a recommendation to the cart. The cart is created at the store over UCP.</li><li>Say “place order”. BirchStreet applies policy and opens a real checkout.</li></ol>
-      </article>
-    </div>
-  </section>
 
   <!-- Overview -->
   <section id="p-overview" role="tabpanel" aria-labelledby="tab-overview">
@@ -689,7 +658,7 @@ body.ab-open .ask-birch{display:none}
           <li>Real products, prices and stock come back. Add items and the agent builds a real cart at each store.</li>
           <li>Say "place order". BirchStreet applies policy, then each store opens a real checkout with tax.</li>
         </ol>
-        <button class="btn primary" data-tab="live">Try live UCP suppliers</button>
+        <button class="btn primary" data-tab="ucp">Try UCP suppliers</button>
       </article>
     </div>
   </section>
@@ -871,19 +840,35 @@ body.ab-open .ask-birch{display:none}
     </div>
   </section>
 
-  <!-- Live UCP suppliers: real calls from the browser to each store's UCP endpoint -->
-  <section id="p-live" role="tabpanel" aria-labelledby="tab-live" hidden>
-    <div class="lv-banner"><span class="live-tag">LIVE</span> Real products, prices, stock, store carts, checkouts and tax from each store's UCP endpoint, called from this page. By default checkouts are canceled, so nothing is bought. Settings, including the UCP profile and real-order mode, are in the menu under your name.</div>
-    <div class="lv-net" id="lvNet" role="status" hidden></div>
-    <div class="lv-ask">
-      <div><b>Shop these suppliers with Ask Birch</b><span class="muted">Select suppliers below, or leave none selected to search all of them with Restaurantware first.</span></div>
-      <button class="btn primary" type="button" data-ab-open>Open Ask Birch</button>
+  <!-- Purchasing: search items, UCP suppliers, cart and activity log (also shown as the UCP tab on Supplier ordering options) -->
+  <section id="p-live" role="tabpanel" aria-label="Purchasing" hidden>
+    <div class="ps-hero">
+      <span class="eyebrow">Search items · UCP suppliers <span class="live-tag">LIVE</span></span>
+      <h2>What do you need to buy?</h2>
+      <p class="muted">Ask Birch searches suppliers that aren’t in the BirchStreet catalog, live over UCP, and recommends items. Restaurantware, your preferred supplier, comes first.</p>
+      <form class="ps-search" id="psForm" role="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="psQ" placeholder="Type an item, e.g. 2 cases of paper cups" aria-label="Item name" autocomplete="off">
+        <select id="psScope" aria-label="Search in"></select>
+        <button class="btn primary" type="submit">Search</button>
+      </form>
+      <div class="ps-cats"><span class="muted">Popular:</span>
+        <button class="ps-cat" type="button" data-ps="paper cups">Paper cups</button>
+        <button class="ps-cat" type="button" data-ps="to-go containers">To-go containers</button>
+        <button class="ps-cat" type="button" data-ps="dinnerware">Dinnerware</button>
+        <button class="ps-cat" type="button" data-ps="bamboo skewers">Bamboo skewers</button>
+        <button class="ps-cat" type="button" data-ps="white bath towels">Bath towels</button>
+        <button class="ps-cat" type="button" data-ps="whole bean coffee">Coffee</button>
+      </div>
     </div>
+    <div class="lv-net" id="lvNet" role="status" hidden></div>
+    <h3 class="pg-h">UCP suppliers <span class="muted" style="font-weight:400;font-size:13px">Select suppliers to narrow the search, or leave none selected to search all of them, Restaurantware first.</span></h3>
     <div class="lv-picker" id="lvPicker" aria-label="Suppliers to search"></div>
     <div class="lv-lower">
       <section class="lv-card" aria-labelledby="lvCartH"><h3 id="lvCartH">Cart <span class="pill" id="lvLimit">Limit $75</span></h3><div id="lvCart"><span class="muted">Empty. Ask Birch for items, then choose Add to cart.</span></div></section>
       <section class="lv-card" aria-labelledby="lvLogH"><h3 id="lvLogH">Activity log <button class="link" type="button" data-lv-act="clearlog">Clear</button></h3><p class="muted" style="font-size:12px;margin:-4px 0 8px">What you typed and did, then every UCP call it caused, in order.</p><div class="lv-log" id="lvLog"><span class="muted">Nothing yet. Search for an item to start.</span></div></section>
     </div>
+    <p class="muted" style="font-size:12px;margin-top:14px">Prices, stock, store carts, checkouts and tax come live from each store’s UCP endpoint. By default checkouts are canceled, so nothing is bought. Settings, including the UCP profile and real-order mode, are in the menu under your name.</p>
   </section>
 
   <p class="foot"><b>Live UCP suppliers:</b> product names, prices, images, stock, store carts, checkout totals and tax come live from each store's UCP endpoint, called from this page with the BirchStreet platform profile. In trial mode checkouts are canceled right after they are created, so nothing is bought; in real-order mode the buyer pays on the store's own checkout page. PO numbers and manager approval on that tab are demo only, because this page has no BirchStreet backend. <b>DEMO tabs:</b> sample catalog data, prices and order numbers. Walmart is reached over UCP (recommended) or directly over MCP through the Walmart Agent Gateway; Walmart and Grainger endpoints are stand-ins. US Foods price, availability and ordering need an API or EDI agreement with US Foods, the Sysco punchout uses cXML credentials from Sysco, and the Chef's Warehouse JAB agent needs Chef's Warehouse's permission. Orders over $75 need manager approval, the same rule the agent service uses.</p>
@@ -944,18 +929,19 @@ function approvalBlock(po){
 }
 
 /* ---------------- Tabs ---------------- */
-const TABS = ['home', 'purchasing', 'overview', 'walmart', 'usfoods', 'grainger', 'sysco', 'chefs', 'live'];
-const NAMES = {overview:'Supplier examples', walmart:'Walmart', usfoods:'US Foods', grainger:'Grainger', sysco:'Sysco', chefs:'Chef\'s Warehouse', live:'Live UCP suppliers', home:'Home', purchasing:'Search items'};
+const TABS = ['home', 'overview', 'walmart', 'usfoods', 'grainger', 'sysco', 'chefs', 'ucp', 'live'];
+const NAMES = {walmart:'Walmart', usfoods:'US Foods', grainger:'Grainger', sysco:'Sysco', chefs:'Chef\'s Warehouse', live:'Search items', ucp:'UCP suppliers', home:'Home', overview:'Supplier ordering options'};
 function show(tab){
-  if (['brooklinen','parachute','deathwish'].includes(tab)) tab = 'live';
+  if (['brooklinen','parachute','deathwish','purchasing'].includes(tab)) tab = 'live';
   if (!TABS.includes(tab)) tab = 'home';
   TABS.forEach(t => {
-    $('#p-' + t).hidden = t !== tab;
+    const pn = $('#p-' + t); if (pn) pn.hidden = t !== (tab === 'ucp' ? 'live' : tab);
     const tb = $('#tab-' + t); if (tb) tb.setAttribute('aria-selected', String(t === tab));
   });
   $('#crumbHere').textContent = NAMES[tab];
   document.body.classList.toggle('on-home', tab === 'home');
-  document.body.classList.toggle('on-standalone', tab === 'home' || tab === 'purchasing');
+  document.body.classList.toggle('on-standalone', tab === 'home');
+  document.body.classList.toggle('page-pur', tab === 'live');
   if (tab === 'chefs' && !jb.started) jbRun();  // the prediction is ready, so JAB starts on its own
   try { history.replaceState(null, '', '#' + tab); } catch (e) {}
   window.scrollTo(0, 0);
@@ -2408,7 +2394,7 @@ function init(){
 }
 $('#lvForm').addEventListener('submit', e => { e.preventDefault(); handle($('#lvInput').value); });
 document.addEventListener('click', e => {
-  if (e.target.closest('[data-tab="live"]')) { setTimeout(checkAll, 0); }
+  if (e.target.closest('[data-tab="live"], [data-tab="ucp"]')) { setTimeout(checkAll, 0); }
   const s = e.target.closest('[data-lv-store]');
   if (s){
     const k = s.dataset.lvStore, adding = !st.selected.has(k);
@@ -2473,8 +2459,8 @@ function setUser(u){
 window.LiveUCP = {init, count: () => Object.keys(STORES).length, searchFrom, setUser, logUser, newChat, greet,
   scopes: () => [{v: 'all', t: `Recommended: Restaurantware first, all ${Object.keys(STORES).length} UCP suppliers`}].concat(GROUPS.map(g => ({v: g.key, t: g.name, stores: Object.entries(g.stores).map(([k, s]) => ({v: k, t: s.name}))})))};
 init();
-if (location.hash === '#live') checkAll();
-window.addEventListener('hashchange', () => { if (location.hash === '#live') checkAll(); });
+if (['#live', '#ucp'].includes(location.hash)) checkAll();
+window.addEventListener('hashchange', () => { if (['#live', '#ucp'].includes(location.hash)) checkAll(); });
 })();
 </script>
 <script>
@@ -2552,7 +2538,9 @@ function toggleMenu(open){
   m.hidden = !show; b.setAttribute('aria-expanded', String(show));
 }
 function markRail(){
-  const t = location.hash.slice(1) || 'home';
+  let t = location.hash.slice(1) || 'home';
+  if (t === 'purchasing') t = 'live';
+  if (['walmart', 'grainger', 'sysco', 'chefs', 'ucp'].includes(t)) t = 'overview';
   document.querySelectorAll('[data-rail]').forEach(a => a.classList.toggle('on', a.dataset.rail === t));
 }
 
